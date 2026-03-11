@@ -29,7 +29,6 @@ import org.aussiebox.bitsofbox.BOB;
 import org.aussiebox.bitsofbox.BOBConstants;
 import org.aussiebox.bitsofbox.item.ModItems;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class PickarangEntity extends ThrownEntity {
@@ -49,7 +48,7 @@ public class PickarangEntity extends ThrownEntity {
     }
 
     protected Item getDefaultItem() {
-        return ModItems.WOODEN_FLUIDITY;
+        return ModItems.SHIMMERPICK;
     }
 
     public ItemStack getStack() {
@@ -121,7 +120,7 @@ public class PickarangEntity extends ThrownEntity {
         }
         if (hitResult instanceof EntityHitResult entityHit) {
             DamageSource damageSource = this.getDamageSources().create(BOBConstants.PICKARANG_DAMAGE, this.getOwner());
-            float damage = Arrays.stream(BOBConstants.fluidityAttackDamages().get(this.getStack().getItem())).toList().get(2).floatValue();
+            float damage = 4.0F;
             entityHit.getEntity().damage(damageSource, damage);
         }
     }
@@ -133,7 +132,7 @@ public class PickarangEntity extends ThrownEntity {
             this.hitOrDeflect(hitResult);
         }
 
-        if (getReturnTicks() >= 1000000) setReturnTicks(BOBConstants.fluidityPickarangReturnTimes().get(getStack().getItem()));
+        if (getReturnTicks() >= 1000000) setReturnTicks(BOBConstants.shimmerpickReturnTime);
 
         changeReturnTicks(-1);
 
@@ -162,12 +161,12 @@ public class PickarangEntity extends ThrownEntity {
             this.setVelocity(vec3d);
         }
 
-        if (this.getReturnTicks() <= 0 && Objects.requireNonNull(this.getOwner()).distanceTo(this) < 1) {
+        if (this.getReturnTicks() <= 0 && Objects.requireNonNull(this.getOwner()).distanceTo(this) < 2.5F) {
             drop();
             return;
         }
 
-        if (this.getReturnTicks() <= -(BOBConstants.fluidityPickarangReturnTimes().get(getStack().getItem())-2)) {
+        if (this.getReturnTicks() <= -(BOBConstants.shimmerpickReturnTime)-2) {
             drop();
             return;
         }
@@ -193,16 +192,6 @@ public class PickarangEntity extends ThrownEntity {
     }
 
     private TagKey<Block> getInverseBreakableTag() {
-        Item item = this.getStack().getItem();
-
-        if (item == ModItems.WOODEN_FLUIDITY) return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
-        if (item == ModItems.STONE_FLUIDITY) return BlockTags.INCORRECT_FOR_STONE_TOOL;
-        if (item == ModItems.COPPER_FLUIDITY) return BlockTags.INCORRECT_FOR_STONE_TOOL;
-        if (item == ModItems.GOLD_FLUIDITY) return BlockTags.INCORRECT_FOR_GOLD_TOOL;
-        if (item == ModItems.IRON_FLUIDITY) return BlockTags.INCORRECT_FOR_IRON_TOOL;
-        if (item == ModItems.DIAMOND_FLUIDITY) return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
-        if (item == ModItems.NETHERITE_FLUIDITY) return BlockTags.INCORRECT_FOR_NETHERITE_TOOL;
-
-        return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
+        return BlockTags.INCORRECT_FOR_NETHERITE_TOOL;
     }
 }

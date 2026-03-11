@@ -1,7 +1,0 @@
-{
-	"parent": "bitsofbox:item/fluidity/base/trident_throwing",
-	"textures": {
-		"trident": "bitsofbox:item/fluidity/trident_hand",
-		"decoration": "bitsofbox:item/fluidity/iron/trident_hand_decoration"
-	}
-}

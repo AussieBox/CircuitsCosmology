@@ -3,22 +3,14 @@
     "translate": "enchantment.bitsofbox.shimmerseep"
   },
   "supported_items": [
-    "bitsofbox:wooden_fluidity",
-    "bitsofbox:stone_fluidity",
-    "bitsofbox:copper_fluidity",
-    "bitsofbox:gold_fluidity",
-    "bitsofbox:iron_fluidity",
-    "bitsofbox:diamond_fluidity",
-    "bitsofbox:netherite_fluidity"
+    "bitsofbox:shimmerfork",
+    "bitsofbox:shimmeraxe",
+    "bitsofbox:shimmerpick"
   ],
   "primary_items": [
-    "bitsofbox:wooden_fluidity",
-    "bitsofbox:stone_fluidity",
-    "bitsofbox:copper_fluidity",
-    "bitsofbox:gold_fluidity",
-    "bitsofbox:iron_fluidity",
-    "bitsofbox:diamond_fluidity",
-    "bitsofbox:netherite_fluidity"
+    "bitsofbox:shimmerfork",
+    "bitsofbox:shimmeraxe",
+    "bitsofbox:shimmerpick"
   ],
   "weight": 1,
   "max_level": 1,

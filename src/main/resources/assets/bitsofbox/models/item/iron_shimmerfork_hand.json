@@ -1,0 +1,15 @@
+{
+	"parent": "bitsofbox:item/shimmer_tools/base/trident_hand",
+	"textures": {
+		"trident": "bitsofbox:item/shimmer_tools/base/trident_hand",
+		"decoration": "bitsofbox:item/shimmer_tools/iron/trident_hand_decoration"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"bitsofbox:throwing": 1
+			},
+			"model": "bitsofbox:item/shimmer_tools/iron/trident_throwing"
+		}
+	]
+}

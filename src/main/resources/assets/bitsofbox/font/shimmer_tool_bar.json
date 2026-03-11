@@ -1,0 +1,61 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        " ": 4
+      }
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:0.png",
+      "chars": [
+        "-"
+      ],
+      "ascent": -32768,
+      "height": -4
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/start.png",
+      "chars": ["s"],
+      "ascent": 5,
+      "height": 5
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/loop.png",
+      "chars": ["l"],
+      "ascent": 5,
+      "height": 5
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/end.png",
+      "chars": ["e"],
+      "ascent": 5,
+      "height": 5
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/filled/start.png",
+      "chars": ["S"],
+      "ascent": 5,
+      "height": 5
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/filled/loop.png",
+      "chars": ["L"],
+      "ascent": 5,
+      "height": 5
+    },
+    {
+      "type": "bitmap",
+      "file": "bitsofbox:font/tooltip/shimmer_tool_bar/filled/end.png",
+      "chars": ["E"],
+      "ascent": 5,
+      "height": 5
+    }
+  ]
+}

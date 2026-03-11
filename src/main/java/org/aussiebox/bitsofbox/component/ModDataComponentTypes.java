@@ -15,14 +15,20 @@ public class ModDataComponentTypes {
     public static final ComponentType<Integer> DRAGONFLAME_CACTUS_FUSE =
             register("dragonflame_cactus_fuse", builder -> builder.codec(Codec.INT));
 
-    public static final ComponentType<BOBConstants.FluidityMode> FLUIDITY_MODE =
-            register("fluidity_mode", builder -> builder.codec(BOBConstants.FluidityMode.CODEC));
+    public static final ComponentType<BOBConstants.ShimmerToolType> SHIMMER_TOOL_TYPE =
+            register("shimmer_tool_mode", builder -> builder.codec(BOBConstants.ShimmerToolType.CODEC));
 
-    public static final ComponentType<Integer> FLUIDITY_CHARGES =
-            register("fluidity_charges", builder -> builder.codec(Codec.INT));
+    public static final ComponentType<BOBConstants.ShimmerToolSkin> SHIMMER_TOOL_SKIN =
+            register("shimmer_tool_skin", builder -> builder.codec(BOBConstants.ShimmerToolSkin.CODEC));
 
-    public static final ComponentType<Integer> FLUIDITY_MAX_CHARGES =
-            register("fluidity_max_charges", builder -> builder.codec(Codec.INT));
+    public static final ComponentType<Integer> SHIMMER_TOOL_CHARGES =
+            register("shimmer_tool_charges", builder -> builder.codec(Codec.INT));
+
+    public static final ComponentType<Integer> SHIMMER_TOOL_MAX_CHARGES =
+            register("shimmer_tool_max_charges", builder -> builder.codec(Codec.INT));
+
+    public static final ComponentType<Boolean> HAS_BORDERLINKED =
+            register("has_borderlinked", builder -> builder.codec(Codec.BOOL));
 
 
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {

@@ -1,16 +1,16 @@
 {
-  "item.fluidity.charge": {
+  "item.shimmer_tool.charge": {
     "sounds": [
-      "bitsofbox:item/fluidity_charge_1",
-      "bitsofbox:item/fluidity_charge_2",
-      "bitsofbox:item/fluidity_charge_3"
+      "bitsofbox:item/shimmer_tool_charge_1",
+      "bitsofbox:item/shimmer_tool_charge_2",
+      "bitsofbox:item/shimmer_tool_charge_3"
     ],
-    "subtitle": "subtitles.bitsofbox.item.fluidity_charge"
+    "subtitle": "subtitles.bitsofbox.item.shimmer_tool_charge"
   },
-  "item.fluidity.shimmerseep_charge": {
+  "item.shimmer_tool.shimmerseep_charge": {
     "sounds": [
-      "bitsofbox:item/fluidity_shimmerseep_charge"
+      "bitsofbox:item/shimmer_tool_shimmerseep_charge"
     ],
-    "subtitle": "subtitles.bitsofbox.item.fluidity_shimmerseep_charge"
+    "subtitle": "subtitles.bitsofbox.item.shimmer_tool_shimmerseep_charge"
   }
 }

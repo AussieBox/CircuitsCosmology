@@ -1,6 +1,7 @@
 package org.aussiebox.bitsofbox.client.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -9,7 +10,6 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.aussiebox.bitsofbox.BOB;
 import org.aussiebox.bitsofbox.BOBConstants;
@@ -39,78 +39,20 @@ public abstract class ItemRendererMixin {
     )
     public BakedModel renderItem(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
 
-        if (stack.getItem() == ModItems.WOODEN_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
+        ClientWorld world = MinecraftClient.getInstance().world;
+        LivingEntity entity = stack.getHolder() instanceof LivingEntity ? (LivingEntity) stack.getHolder() : null;
+        BakedModel newModel = null;
 
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.STONE_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.COPPER_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.GOLD_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.IRON_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.DIAMOND_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.NETHERITE_FLUIDITY && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_trident")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_pickaxe")));
+        if (stack.getItem() == ModItems.SHIMMERFORK && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
+            newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("shimmerfork")));
         }
 
-        return bakedModel;
+        if (newModel == null) return bakedModel;
+
+        ClientWorld clientWorld = world instanceof ClientWorld ? world : null;
+        BakedModel newModel2 = newModel.getOverrides().apply(newModel, stack, clientWorld, entity, 0);
+
+        return newModel2 == null ? this.models.getModelManager().getMissingModel() : newModel2;
     }
 
     @ModifyVariable(
@@ -122,75 +64,25 @@ public abstract class ItemRendererMixin {
 
         BakedModel newModel = null;
 
-        if (stack.getItem() == ModItems.WOODEN_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
+        if (stack.getItem() == ModItems.SHIMMERFORK) {
+            BOBConstants.ShimmerToolSkin skin = stack.getOrDefault(ModDataComponentTypes.SHIMMER_TOOL_SKIN, BOBConstants.ShimmerToolSkin.BASE);
 
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.STONE_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.COPPER_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.GOLD_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.IRON_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.DIAMOND_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_pickaxe")));
-        }
-        if (stack.getItem() == ModItems.NETHERITE_FLUIDITY) {
-            BOBConstants.FluidityMode mode = stack.get(ModDataComponentTypes.FLUIDITY_MODE);
-
-            if (mode == BOBConstants.FluidityMode.TRIDENT)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_trident_hand")));
-            if (mode == BOBConstants.FluidityMode.AXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_axe")));
-            if (mode == BOBConstants.FluidityMode.PICKAXE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_pickaxe")));
+            if (skin == BOBConstants.ShimmerToolSkin.BASE)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("base_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.WOODEN_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("wooden_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.STONE_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("stone_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.COPPER_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("copper_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.GOLD_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("gold_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.IRON_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("iron_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.DIAMOND_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("diamond_shimmerfork_hand")));
+            if (skin == BOBConstants.ShimmerToolSkin.NETHERITE_BINDING)
+                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(BOB.id("netherite_shimmerfork_hand")));
         }
 
         if (newModel == null) return bakedModel;

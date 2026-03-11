@@ -21,9 +21,9 @@ public class ModEntities {
                     .maxTrackingRange(4)
                     .trackingTickInterval(20).build("pickarang")
     );
-    public static final EntityType<FluidityTridentEntity> FluidityTridentEntityType = Registry.register(Registries.ENTITY_TYPE,
+    public static final EntityType<ShimmerforkEntity> FluidityTridentEntityType = Registry.register(Registries.ENTITY_TYPE,
             BOB.id("fluidity_trident"),
-            EntityType.Builder.<FluidityTridentEntity>create(FluidityTridentEntity::new, SpawnGroup.MISC)
+            EntityType.Builder.<ShimmerforkEntity>create(ShimmerforkEntity::new, SpawnGroup.MISC)
                     .dimensions(0.5F, 0.5F)
                     .eyeHeight(0.13F)
                     .maxTrackingRange(4)

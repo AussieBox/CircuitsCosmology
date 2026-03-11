@@ -22,7 +22,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "bitsofbox:shimmer_powder_data"
+      "bitsofbox:shimmer_component",
+      "bitsofbox:trinket_component"
     ]
   },
   "mixins": [

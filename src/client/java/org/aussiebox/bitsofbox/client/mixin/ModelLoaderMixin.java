@@ -17,39 +17,13 @@ public abstract class ModelLoaderMixin {
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;loadItemModel(Lnet/minecraft/client/util/ModelIdentifier;)V", ordinal = 1))
     private void onInit(CallbackInfo ci) {
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_fluidity_trident_hand")));
-
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_axe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_pickaxe")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_trident")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_fluidity_trident_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "base_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "wooden_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "stone_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "copper_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "gold_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "iron_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "diamond_shimmerfork_hand")));
+        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(BOB.MOD_ID, "netherite_shimmerfork_hand")));
     }
 }

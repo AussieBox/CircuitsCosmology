@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "PSP",
+    "STS",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "bitsofbox:shimmer_powder"
+    },
+    "T": {
+      "item": "minecraft:trident"
+    },
+    "S": {
+      "item": "bitsofbox:shimmerglass"
+    }
+  },
+  "result": {
+    "id": "bitsofbox:shimmerfork"
+  },
+  "show_notification": true
+}

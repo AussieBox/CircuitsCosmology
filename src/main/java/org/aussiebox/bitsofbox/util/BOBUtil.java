@@ -1,15 +1,20 @@
 package org.aussiebox.bitsofbox.util;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
@@ -78,6 +83,20 @@ public class BOBUtil {
 
     public static Vec3d shiftVecTowardsVec(Vec3d point, Vec3d shiftTowards, double amount) {
         return point.add(shiftTowards.subtract(point).normalize().multiply(amount));
+    }
+
+    public static boolean playerHasTrinket(PlayerEntity player, Item targetItem) {
+        var component = TrinketsApi.getTrinketComponent(player);
+
+        if (component.isPresent()) {
+            for (Pair<SlotReference, ItemStack> equipped : component.get().getAllEquipped()) {
+                ItemStack stack = equipped.getRight();
+                if (stack.isOf(targetItem)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

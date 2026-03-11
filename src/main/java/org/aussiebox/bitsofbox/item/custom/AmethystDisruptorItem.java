@@ -8,7 +8,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import org.aussiebox.bitsofbox.cca.ShimmerPowderData;
+import org.aussiebox.bitsofbox.cca.ShimmerComponent;
 import org.aussiebox.bitsofbox.item.ModItems;
 
 public class AmethystDisruptorItem extends Item {
@@ -23,7 +23,7 @@ public class AmethystDisruptorItem extends Item {
 
             if (user.getItemCooldownManager().isCoolingDown(ModItems.AMETHYST_DISRUPTOR)) return TypedActionResult.pass(user.getStackInHand(hand));
 
-            if (ShimmerPowderData.KEY.get(user).obtainmentsToday >= 3) {
+            if (ShimmerComponent.KEY.get(user).obtainmentsToday >= 3) {
                 user.sendMessage(
                         Text.translatable("tip.bitsofbox.wait_to_collect_shimmer_powder").withColor(0xFF55FF),
                         true
@@ -31,7 +31,7 @@ public class AmethystDisruptorItem extends Item {
                 return TypedActionResult.fail(user.getStackInHand(hand));
             }
 
-            ShimmerPowderData.KEY.get(user).obtainPowder();
+            ShimmerComponent.KEY.get(user).obtainPowder();
             ItemStack stack = new ItemStack(ModItems.SHIMMER_POWDER);
             user.giveItemStack(stack);
 

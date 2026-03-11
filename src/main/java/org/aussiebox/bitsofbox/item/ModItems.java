@@ -24,7 +24,8 @@ import org.aussiebox.bitsofbox.block.ModBlocks;
 import org.aussiebox.bitsofbox.component.ModDataComponentTypes;
 import org.aussiebox.bitsofbox.item.custom.AmethystDisruptorItem;
 import org.aussiebox.bitsofbox.item.custom.DragonflameCactusItem;
-import org.aussiebox.bitsofbox.item.custom.FluidityItem;
+import org.aussiebox.bitsofbox.item.custom.PyrrhianBeltItem;
+import org.aussiebox.bitsofbox.item.custom.ShimmerToolItem;
 
 import java.util.function.Function;
 
@@ -36,162 +37,75 @@ public class ModItems {
             new Item.Settings()
     );
 
-    public static final Item WOODEN_FLUIDITY = registerItem(
-            "wooden_fluidity",
-            FluidityItem::new,
+    public static final Item SHIMMERFORK = registerItem(
+            "shimmerfork",
+            ShimmerToolItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 3)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.TRIDENT)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, BOBConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    5.0,
+                                    7.5,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.9,
+                                    -3.0,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .build()
                     )
                     .rarity(Rarity.EPIC)
-                    .maxDamage(59)
+                    .maxDamage(2031)
+                    .fireproof()
     );
 
-    public static final Item STONE_FLUIDITY = registerItem(
-            "stone_fluidity",
-            FluidityItem::new,
+    public static final Item SHIMMERAXE = registerItem(
+            "shimmeraxe",
+            ShimmerToolItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 4)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.AXE)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, BOBConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    5.5,
+                                    8.5,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.7,
+                                    -2.8,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .build()
                     )
                     .rarity(Rarity.EPIC)
-                    .maxDamage(131)
+                    .maxDamage(2031)
+                    .fireproof()
     );
 
-    public static final Item COPPER_FLUIDITY = registerItem(
-            "copper_fluidity",
-            FluidityItem::new,
+    public static final Item SHIMMERPICK = registerItem(
+            "shimmerpick",
+            ShimmerToolItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 5)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.PICKAXE)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
+                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, BOBConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    6.0,
+                                    4.5,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.5,
+                                    -2.6,
                                     EntityAttributeModifier.Operation.ADD_VALUE
                             ), AttributeModifierSlot.MAINHAND)
                             .build()
-                    )
-                    .rarity(Rarity.EPIC)
-                    .maxDamage(191)
-    );
-
-    public static final Item GOLD_FLUIDITY = registerItem(
-            "gold_fluidity",
-            FluidityItem::new,
-            new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 7)
-                    .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    5.5,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -3.2,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .build()
-                    )
-                    .rarity(Rarity.EPIC)
-                    .maxDamage(32)
-    );
-
-    public static final Item IRON_FLUIDITY = registerItem(
-            "iron_fluidity",
-            FluidityItem::new,
-            new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 6)
-                    .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    7.0,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.5,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .build()
-                    )
-                    .rarity(Rarity.EPIC)
-                    .maxDamage(250)
-    );
-
-    public static final Item DIAMOND_FLUIDITY = registerItem(
-            "diamond_fluidity",
-            FluidityItem::new,
-            new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 7)
-                    .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    8.0,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.3,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .build()
-                    )
-                    .rarity(Rarity.EPIC)
-                    .maxDamage(1561)
-    );
-
-    public static final Item NETHERITE_FLUIDITY = registerItem(
-            "netherite_fluidity",
-            FluidityItem::new,
-            new Item.Settings()
-                    .component(ModDataComponentTypes.FLUIDITY_MODE, BOBConstants.FluidityMode.TRIDENT)
-                    .component(ModDataComponentTypes.FLUIDITY_MAX_CHARGES, 8)
-                    .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-                            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                    9.0,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                            .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-                                    Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                    -2.1,
-                                    EntityAttributeModifier.Operation.ADD_VALUE
-                            ), AttributeModifierSlot.MAINHAND)
-                                    .build()
                     )
                     .rarity(Rarity.EPIC)
                     .maxDamage(2031)
@@ -219,6 +133,15 @@ public class ModItems {
             (settings -> new BlockItem(ModBlocks.SHIMMERGLASS, settings)),
             new Item.Settings()
                     .rarity(Rarity.EPIC)
+    );
+
+    public static final Item PYRRHIAN_BELT = registerItem(
+            "pyrrhian_belt",
+            PyrrhianBeltItem::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .rarity(Rarity.EPIC)
+                    .fireproof()
     );
 
     public static final RegistryKey<ItemGroup> BOB_ITEMGROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(BOB.MOD_ID, "bitsofbox"));
@@ -251,13 +174,9 @@ public class ModItems {
             itemGroup.add(AMETHYST_DISRUPTOR);
             itemGroup.add(SHIMMER_POWDER);
             itemGroup.add(SHIMMERGLASS);
-            itemGroup.add(WOODEN_FLUIDITY);
-            itemGroup.add(STONE_FLUIDITY);
-            itemGroup.add(COPPER_FLUIDITY);
-            itemGroup.add(GOLD_FLUIDITY);
-            itemGroup.add(IRON_FLUIDITY);
-            itemGroup.add(DIAMOND_FLUIDITY);
-            itemGroup.add(NETHERITE_FLUIDITY);
+            itemGroup.add(SHIMMERFORK);
+            itemGroup.add(SHIMMERAXE);
+            itemGroup.add(SHIMMERPICK);
         });
     }
 
