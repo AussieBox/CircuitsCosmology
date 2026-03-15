@@ -69,15 +69,17 @@ public class ShimmeringTableBlock extends BlockWithEntity {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (!(blockEntity instanceof ShimmeringTableBlockEntity shimmeringBlockEntity)) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
+        // TODO: Make multiple stacks combine as one, OR allow for item count requirements to be spread across stacks
         if (stack.isOf(ModItems.SHIMMER_POWDER)) {
             ShimmeringTableInventory inventory = shimmeringBlockEntity.toRecipeInventory();
 
             Optional<RecipeEntry<ShimmeringRecipe>> match = world.getRecipeManager().getFirstMatch(ModRecipes.SHIMMERING_TYPE, inventory, world);
             if (match.isEmpty()) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-            player.getMainHandStack().decrement(1);
+            stack.decrement(1);
             shimmeringBlockEntity.setAffectedStack(match.get().value().getOutput());
             shimmeringBlockEntity.clear();
+            return ItemActionResult.SUCCESS;
         }
 
         if (stack.isEmpty()) {
@@ -94,7 +96,7 @@ public class ShimmeringTableBlock extends BlockWithEntity {
             if (shimmeringBlockEntity.getAffectedStack() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
             else shimmeringBlockEntity.addStack(stack.copyWithCount(1));
 
-            player.getMainHandStack().decrement(1);
+            stack.decrement(1);
             return ItemActionResult.SUCCESS;
         }
 
