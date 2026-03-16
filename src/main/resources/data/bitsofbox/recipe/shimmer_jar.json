@@ -1,24 +1,38 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "pattern": [
-    "SDS",
-    "SPS",
-    "SSS"
-  ],
-  "key": {
-    "P": {
-      "item": "bitsofbox:shimmer_powder"
-    },
-    "S": {
-      "item": "bitsofbox:shimmerglass"
-    },
-    "D": {
-      "item": "minecraft:diamond_block"
-    }
+  "type": "bitsofbox:shimmering",
+  "affected": {
+    "item": "bitsofbox:shimmer_powder_block"
   },
+  "ingredients": [
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
   "result": {
     "id": "bitsofbox:shimmer_jar"
-  },
-  "show_notification": true
+  }
 }

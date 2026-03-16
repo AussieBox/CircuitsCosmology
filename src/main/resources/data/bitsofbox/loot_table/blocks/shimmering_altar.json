@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bitsofbox:shimmering_table"
+          "name": "bitsofbox:shimmering_altar"
         }
       ],
       "conditions": [

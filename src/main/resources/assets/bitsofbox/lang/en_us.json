@@ -34,7 +34,7 @@
   "block.bitsofbox.dragonflame_cactus_block": "Dragonflame Cactus Stem",
   "block.bitsofbox.shimmerglass": "Shimmerglass",
   "block.bitsofbox.shimmer_powder_block": "Block of Shimmer Powder",
-  "block.bitsofbox.shimmering_table": "Shimmering Table",
+  "block.bitsofbox.shimmering_altar": "Shimmering Altar",
 
   "item_skin.bitsofbox.prefix": "Skin: ",
   "item_skin.bitsofbox.shimmer_tool.base": "Normal",
@@ -51,6 +51,8 @@
 
   "key.bitsofbox.category": "Bits of Box",
       "key.bitsofbox.toggle_flight": "Toggle Flight",
+
+  "jei.category.bitsofbox.shimmering": "Shimmering",
 
   "death.attack.pickarang": "%s was cracked in the head by %s's pickaxe",
   "death.attack.pickarang.item": "%s was cracked in the head by %s with %s",

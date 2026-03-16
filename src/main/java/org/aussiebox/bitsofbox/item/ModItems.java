@@ -141,7 +141,7 @@ public class ModItems {
 
     public static final BlockItem SHIMMERING_TABLE = registerBlockItem(
             "shimmering_table",
-            (settings -> new BlockItem(ModBlocks.SHIMMERING_TABLE, settings)),
+            (settings -> new BlockItem(ModBlocks.SHIMMERING_ALTAR, settings)),
             new Item.Settings()
                     .rarity(Rarity.EPIC)
     );
@@ -190,11 +190,13 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(BOB_ITEMGROUP_KEY).register(itemGroup -> {
             itemGroup.add(DRAGONFLAME_CACTUS.getDefaultStack());
             itemGroup.add(ModBlocks.DRAGONFLAME_CACTUS_BLOCK.asItem());
+            itemGroup.add(PYRRHIAN_BELT);
             itemGroup.add(AMETHYST_DISRUPTOR);
             itemGroup.add(SHIMMER_POWDER);
             itemGroup.add(SHIMMER_POWDER_BLOCK);
             itemGroup.add(SHIMMERGLASS);
             itemGroup.add(SHIMMERING_TABLE);
+            itemGroup.add(SHIMMER_JAR);
             itemGroup.add(SHIMMERFORK);
             itemGroup.add(SHIMMERAXE);
             itemGroup.add(SHIMMERPICK);

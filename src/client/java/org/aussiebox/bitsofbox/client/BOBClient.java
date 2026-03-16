@@ -22,7 +22,7 @@ import org.aussiebox.bitsofbox.cca.TrinketComponent;
 import org.aussiebox.bitsofbox.client.hud.PyrrhianBeltFlightRenderer;
 import org.aussiebox.bitsofbox.client.hud.ShimmerToolChargeRenderer;
 import org.aussiebox.bitsofbox.client.model.entity.DragonflameCactusEntityModel;
-import org.aussiebox.bitsofbox.client.render.blockentity.ShimmeringTableBlockEntityRenderer;
+import org.aussiebox.bitsofbox.client.render.blockentity.ShimmeringAltarBlockEntityRenderer;
 import org.aussiebox.bitsofbox.client.render.entity.DragonflameCactusEntityRenderer;
 import org.aussiebox.bitsofbox.client.render.entity.PickarangEntityRenderer;
 import org.aussiebox.bitsofbox.client.render.entity.ShimmerforkEntityRenderer;
@@ -50,13 +50,13 @@ public class BOBClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DRAGONFLAME_CACTUS_PLANT, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DRAGONFLAME_CACTUS_BLOCK, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERGLASS, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERING_TABLE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERING_ALTAR, RenderLayer.getCutout());
 
         EntityRendererRegistry.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PickarangEntityType, (context) -> new PickarangEntityRenderer<>(context, 2.0F, true));
         EntityRendererRegistry.register(ModEntities.FluidityTridentEntityType, ShimmerforkEntityRenderer::new);
 
-        BlockEntityRendererFactories.register(ModBlockEntities.SHIMMERING_TABLE_BLOCK_ENTITY, ShimmeringTableBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.SHIMMERING_ALTAR_BLOCK_ENTITY, ShimmeringAltarBlockEntityRenderer::new);
 
         registerModelPredicates();
         registerKeybinds();

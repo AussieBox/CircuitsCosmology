@@ -9,9 +9,11 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import org.aussiebox.bitsofbox.recipe.inventory.ShimmeringTableInventory;
+import org.aussiebox.bitsofbox.recipe.inventory.ShimmeringAltarInventory;
 
-public class ShimmeringRecipe implements Recipe<ShimmeringTableInventory> {
+import java.util.Collections;
+
+public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
     @Getter
     private final Ingredient affectedIngredient;
     private final DefaultedList<Ingredient> ingredients;
@@ -24,13 +26,28 @@ public class ShimmeringRecipe implements Recipe<ShimmeringTableInventory> {
     }
 
     @Override
-    public boolean matches(ShimmeringTableInventory input, World world) {
+    public boolean matches(ShimmeringAltarInventory input, World world) {
         if (!affectedIngredient.test(input.getAffectedStack())) return false;
-        return input.getRecipeMatcher().match(this, null);
+        for (Ingredient ingredient : ingredients) {
+            int count = Collections.frequency(ingredients, ingredient);
+            boolean testPass = false;
+            boolean amountPass = false;
+            for (ItemStack stack : input.getIngredients()) {
+                testPass = ingredient.test(stack);
+                if (testPass)
+                    amountPass = Collections.frequency(input.getIngredients(), stack) >= count;
+
+                if (!testPass) continue;
+                if (amountPass) break;
+            }
+            if (!testPass) return false;
+            if (!amountPass) return false;
+        }
+        return true;
     }
 
     @Override
-    public ItemStack craft(ShimmeringTableInventory input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack craft(ShimmeringAltarInventory input, RegistryWrapper.WrapperLookup lookup) {
         return output.copy();
     }
 

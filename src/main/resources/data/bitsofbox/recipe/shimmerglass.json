@@ -1,22 +1,24 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "pattern": [
-    " G ",
-    "GPG",
-    " G "
-  ],
-  "key": {
-    "P": {
-      "item": "bitsofbox:shimmer_powder"
+  "type": "bitsofbox:shimmering",
+  "affected": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:tinted_glass"
     },
-    "G": {
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
       "item": "minecraft:tinted_glass"
     }
-  },
+  ],
   "result": {
     "id": "bitsofbox:shimmerglass",
     "count": 4
-  },
-  "show_notification": true
+  }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "bitsofbox:block/shimmering_altar",
+  "textures": {
+    "particle": "bitsofbox:block/shimmering_altar",
+    "texture": "bitsofbox:block/shimmering_altar"
+  }
+}

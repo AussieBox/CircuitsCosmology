@@ -1,7 +1,0 @@
-{
-  "parent": "bitsofbox:block/shimmering_table",
-  "textures": {
-    "particle": "bitsofbox:block/shimmering_table",
-    "texture": "bitsofbox:block/shimmering_table"
-  }
-}

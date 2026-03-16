@@ -6,12 +6,12 @@ import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.collection.DefaultedList;
 
-public class ShimmeringTableInventory implements RecipeInput {
+public class ShimmeringAltarInventory implements RecipeInput {
     @Getter private final ItemStack affectedStack;
-    private final DefaultedList<ItemStack> ingredients;
+    @Getter private final DefaultedList<ItemStack> ingredients;
     @Getter private final RecipeMatcher recipeMatcher = new RecipeMatcher();
 
-    public ShimmeringTableInventory(ItemStack affectedStack, DefaultedList<ItemStack> ingredients) {
+    public ShimmeringAltarInventory(ItemStack affectedStack, DefaultedList<ItemStack> ingredients) {
         this.affectedStack = affectedStack;
         this.ingredients = ingredients;
     }

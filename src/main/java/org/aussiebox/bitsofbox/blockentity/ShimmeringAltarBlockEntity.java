@@ -13,23 +13,24 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Clearable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.aussiebox.bitsofbox.recipe.inventory.ShimmeringTableInventory;
+import org.aussiebox.bitsofbox.recipe.inventory.ShimmeringAltarInventory;
 
 import java.util.Collections;
 
 
-public class ShimmeringTableBlockEntity extends BlockEntity implements Inventory {
+public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory, Clearable {
     @Getter @Setter private ItemStack affectedStack = ItemStack.EMPTY;
     @Getter private final DefaultedList<ItemStack> inventory = DefaultedList.of();
 
-    public ShimmeringTableBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SHIMMERING_TABLE_BLOCK_ENTITY, pos, state);
+    public ShimmeringAltarBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.SHIMMERING_ALTAR_BLOCK_ENTITY, pos, state);
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, ShimmeringTableBlockEntity entity) {
+    public static void tick(World world, BlockPos blockPos, BlockState blockState, ShimmeringAltarBlockEntity entity) {
 
     }
 
@@ -91,8 +92,8 @@ public class ShimmeringTableBlockEntity extends BlockEntity implements Inventory
         this.inventory.clear();
     }
 
-    public ShimmeringTableInventory toRecipeInventory() {
-        return new ShimmeringTableInventory(affectedStack, inventory);
+    public ShimmeringAltarInventory toRecipeInventory() {
+        return new ShimmeringAltarInventory(affectedStack, inventory);
     }
 
     @Override

@@ -18,7 +18,7 @@ import org.aussiebox.bitsofbox.BOB;
 import org.aussiebox.bitsofbox.block.custom.DragonflameCactusBlock;
 import org.aussiebox.bitsofbox.block.custom.DragonflameCactusPlantBlock;
 import org.aussiebox.bitsofbox.block.custom.ShimmerglassBlock;
-import org.aussiebox.bitsofbox.block.custom.ShimmeringTableBlock;
+import org.aussiebox.bitsofbox.block.custom.ShimmeringAltarBlock;
 
 import java.util.function.Function;
 
@@ -77,9 +77,9 @@ public class ModBlocks {
             false
     );
 
-    public static final Block SHIMMERING_TABLE = register(
-            "shimmering_table",
-            ShimmeringTableBlock::new,
+    public static final Block SHIMMERING_ALTAR = register(
+            "shimmering_altar",
+            ShimmeringAltarBlock::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.PINK)
                     .strength(0.3F)

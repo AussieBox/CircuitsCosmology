@@ -1,24 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "pattern": [
-    "PSP",
-    "STS",
-    "PSP"
-  ],
-  "key": {
-    "P": {
-      "item": "bitsofbox:shimmer_powder"
-    },
-    "T": {
-      "item": "minecraft:netherite_pickaxe"
-    },
-    "S": {
-      "item": "bitsofbox:shimmerglass"
-    }
+  "type": "bitsofbox:shimmering",
+  "affected": {
+    "item": "minecraft:netherite_pickaxe"
   },
+  "ingredients": [
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:deepslate_emerald_ore"
+    }
+  ],
   "result": {
     "id": "bitsofbox:shimmerpick"
-  },
-  "show_notification": true
+  }
 }

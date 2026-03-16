@@ -96,44 +96,6 @@ public class ShimmerToolItem extends MiningToolItem {
             }
         }
 
-//        if (user.isSneaking()) {
-//            BOBConstants.ShimmerToolType mode = stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE);
-//
-//            if (mode == BOBConstants.ShimmerToolType.TRIDENT) stack.set(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.AXE);
-//            else if (mode == BOBConstants.ShimmerToolType.AXE) stack.set(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.PICKAXE);
-//            else if (mode == BOBConstants.ShimmerToolType.PICKAXE) stack.set(ModDataComponentTypes.SHIMMER_TOOL_TYPE, BOBConstants.ShimmerToolType.TRIDENT);
-//
-//            int index = 0;
-//            if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == BOBConstants.ShimmerToolType.TRIDENT) index = 0;
-//            if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == BOBConstants.ShimmerToolType.AXE) index = 1;
-//            if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == BOBConstants.ShimmerToolType.PICKAXE) index = 2;
-//
-//            double attackDamage = Arrays.stream(BOBConstants.fluidityAttackDamages().get(stack.getItem())).toList().get(index);
-//            double attackSpeed = Arrays.stream(BOBConstants.fluidityAttackSpeeds().get(stack.getItem())).toList().get(index);
-//
-//            stack.remove(DataComponentTypes.ATTRIBUTE_MODIFIERS);
-//            stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
-//                    .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
-//                            Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-//                            attackDamage,
-//                            EntityAttributeModifier.Operation.ADD_VALUE
-//                    ),
-//                            AttributeModifierSlot.MAINHAND)
-//                    .add(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-//                            Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-//                            attackSpeed,
-//                            EntityAttributeModifier.Operation.ADD_VALUE
-//                    ),
-//                            AttributeModifierSlot.MAINHAND)
-//                    .build()
-//            );
-//            stack.remove(DataComponentTypes.TOOL);
-//            if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == BOBConstants.ShimmerToolType.AXE) stack.set(DataComponentTypes.TOOL, getMaterial(stack).createComponent(BlockTags.AXE_MINEABLE));
-//            if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == BOBConstants.ShimmerToolType.PICKAXE) stack.set(DataComponentTypes.TOOL, getMaterial(stack).createComponent(BlockTags.PICKAXE_MINEABLE));
-//
-//            return TypedActionResult.success(stack);
-//        }
-
         return TypedActionResult.pass(stack);
     }
 

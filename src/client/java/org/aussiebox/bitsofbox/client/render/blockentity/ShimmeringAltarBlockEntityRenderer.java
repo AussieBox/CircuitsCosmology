@@ -9,21 +9,21 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.RotationAxis;
-import org.aussiebox.bitsofbox.blockentity.ShimmeringTableBlockEntity;
+import org.aussiebox.bitsofbox.blockentity.ShimmeringAltarBlockEntity;
 import org.aussiebox.bitsofbox.util.BOBUtil;
 import org.joml.Vector2f;
 
 import java.util.List;
 
-public class ShimmeringTableBlockEntityRenderer implements BlockEntityRenderer<ShimmeringTableBlockEntity> {
+public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<ShimmeringAltarBlockEntity> {
     private final ItemRenderer itemRenderer;
 
-    public ShimmeringTableBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public ShimmeringAltarBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         this.itemRenderer = context.getItemRenderer();
     }
 
     @Override
-    public void render(ShimmeringTableBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ShimmeringAltarBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemStack stack = entity.getAffectedStack();
         if (stack.isEmpty()) return;
         if (entity.getWorld() == null) return;

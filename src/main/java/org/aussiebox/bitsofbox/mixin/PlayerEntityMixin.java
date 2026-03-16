@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.aussiebox.bitsofbox.cca.TrinketComponent;
+import org.aussiebox.bitsofbox.item.custom.PyrrhianBeltItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -50,7 +51,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         TrinketComponent trinkets = TrinketComponent.KEY.get(player);
 
         if (trinkets.isFlying() && !player.hasVehicle())
-            return this.isSprinting() ? player.getAbilities().getFlySpeed() * 2.0F : player.getAbilities().getFlySpeed();
+            return this.isSprinting() ? PyrrhianBeltItem.getBeltFlySpeed(player) * 2.0F : PyrrhianBeltItem.getBeltFlySpeed(player);
 
         return original;
     }

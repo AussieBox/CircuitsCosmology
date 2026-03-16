@@ -1,24 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "pattern": [
-    "PSP",
-    "STS",
-    "PSP"
-  ],
-  "key": {
-    "P": {
-      "item": "bitsofbox:shimmer_powder"
-    },
-    "T": {
-      "item": "minecraft:netherite_axe"
-    },
-    "S": {
-      "item": "bitsofbox:shimmerglass"
-    }
+  "type": "bitsofbox:shimmering",
+  "affected": {
+    "item": "minecraft:netherite_axe"
   },
+  "ingredients": [
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:recovery_compass"
+    }
+  ],
   "result": {
     "id": "bitsofbox:shimmeraxe"
-  },
-  "show_notification": true
+  }
 }
