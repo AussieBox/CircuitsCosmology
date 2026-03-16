@@ -1,39 +1,39 @@
 {
   "schemaVersion": 1,
-  "id": "bitsofbox",
+  "id": "ccosmo",
   "version": "${version}",
-  "name": "Bits of Box",
-  "description": "AussieBox's (first) addon for the Harpy SMP!",
-  "authors": [],
+  "name": "Circuit's Cosmology",
+  "description": "A mod containing the many magical objects discovered by Dr. C. Weaver.",
+  "authors": ["Circuitweaver (aka. AussieBox)"],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/bitsofbox/icon.png",
+  "icon": "assets/ccosmo/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "org.aussiebox.bitsofbox.client.BOBClient"
+      "org.aussiebox.ccosmo.client.CCOSMOClient"
     ],
     "main": [
-      "org.aussiebox.bitsofbox.BOB"
+      "org.aussiebox.ccosmo.CCOSMO"
     ],
     "cardinal-components": [
-      "org.aussiebox.bitsofbox.BOBComponents"
+      "org.aussiebox.ccosmo.CCOSMOComponents"
     ],
     "jei_mod_plugin": [
-      "org.aussiebox.bitsofbox.client.jei.JEIPlugin"
+      "org.aussiebox.ccosmo.client.jei.JEIPlugin"
     ]
   },
   "custom": {
     "cardinal-components": [
-      "bitsofbox:shimmer_component",
-      "bitsofbox:trinket_component",
-      "bitsofbox:dragonflame_cactus_component"
+      "ccosmo:shimmer_component",
+      "ccosmo:trinket_component",
+      "ccosmo:dragonflame_cactus_component"
     ]
   },
   "mixins": [
-    "bitsofbox.mixins.json",
+    "ccosmo.mixins.json",
     {
-      "config": "bitsofbox.client.mixins.json",
+      "config": "ccosmo.client.mixins.json",
       "environment": "client"
     }
   ],

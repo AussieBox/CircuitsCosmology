@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "bitsofbox:borderlinked",
-    "bitsofbox:shimmerseep"
+    "ccosmo:borderlinked",
+    "ccosmo:shimmerseep"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ccosmo:shimmer_powder_block"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmer_powder",
+    "count": 9
+  }
+}

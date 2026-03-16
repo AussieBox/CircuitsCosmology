@@ -1,0 +1,27 @@
+{
+  "description": {
+    "translate": "enchantment.ccosmo.shimmerseep"
+  },
+  "supported_items": [
+    "ccosmo:shimmerfork",
+    "ccosmo:shimmeraxe",
+    "ccosmo:shimmerpick"
+  ],
+  "primary_items": [
+    "ccosmo:shimmerfork",
+    "ccosmo:shimmeraxe",
+    "ccosmo:shimmerpick"
+  ],
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 16,
+    "per_level_above_first": 16
+  },
+  "max_cost": {
+    "base": 16,
+    "per_level_above_first": 16
+  },
+  "anvil_cost": 16,
+  "slots": []
+}

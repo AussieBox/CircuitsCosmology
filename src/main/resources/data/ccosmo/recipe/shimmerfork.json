@@ -1,0 +1,32 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:trident"
+  },
+  "ingredients": [
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "minecraft:sea_lantern"
+    },
+    {
+      "item": "minecraft:sea_lantern"
+    },
+    {
+      "item": "minecraft:diamond_block"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmerfork"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:item/generated",
+  "gui_light": "front",
+  "overrides": [
+    {
+      "predicate": {
+        "ccosmo:skin_base": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/base/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_wooden_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/wood/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_stone_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/stone/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_copper_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/copper/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_gold_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/gold/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_iron_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/iron/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_diamond_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/diamond/pickaxe"
+    },
+    {
+      "predicate": {
+        "ccosmo:skin_netherite_binding": 1
+      },
+      "model": "ccosmo:item/shimmer_tools/netherite/pickaxe"
+    }
+  ]
+}

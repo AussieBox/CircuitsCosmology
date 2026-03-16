@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ccosmo:item/shimmer_tools/diamond/pickaxe"
+  }
+}

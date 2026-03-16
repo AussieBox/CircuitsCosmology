@@ -1,0 +1,16 @@
+{
+  "item.shimmer_tool.charge": {
+    "sounds": [
+      "ccosmo:item/shimmer_tool_charge_1",
+      "ccosmo:item/shimmer_tool_charge_2",
+      "ccosmo:item/shimmer_tool_charge_3"
+    ],
+    "subtitle": "subtitles.ccosmo.item.shimmer_tool_charge"
+  },
+  "item.shimmer_tool.shimmerseep_charge": {
+    "sounds": [
+      "ccosmo:item/shimmer_tool_shimmerseep_charge"
+    ],
+    "subtitle": "subtitles.ccosmo.item.shimmer_tool_shimmerseep_charge"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "ccosmo:block/parent/double_layered_block",
+  "textures": {
+    "particle": "ccosmo:block/shimmerglass",
+    "texture": "ccosmo:block/shimmerglass"
+  }
+}

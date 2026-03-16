@@ -1,0 +1,24 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
+      "item": "minecraft:tinted_glass"
+    },
+    {
+      "item": "minecraft:tinted_glass"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmerglass",
+    "count": 4
+  }
+}

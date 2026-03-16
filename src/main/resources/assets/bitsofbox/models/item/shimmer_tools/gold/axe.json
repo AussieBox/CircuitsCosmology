@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "bitsofbox:item/shimmer_tools/gold/axe"
-  }
-}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ccosmo:dragonflame_cactus",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "ccosmo:dragonflame_cactus_fuse": 20
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

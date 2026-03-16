@@ -1,0 +1,7 @@
+{
+  "parent": "ccosmo:block/shimmering_altar",
+  "textures": {
+    "particle": "ccosmo:block/shimmering_altar",
+    "texture": "ccosmo:block/shimmering_altar"
+  }
+}

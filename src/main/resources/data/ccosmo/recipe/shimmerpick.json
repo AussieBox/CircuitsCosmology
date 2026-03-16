@@ -1,0 +1,26 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:netherite_pickaxe"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:budding_amethyst"
+    },
+    {
+      "item": "minecraft:deepslate_emerald_ore"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmerpick"
+  }
+}

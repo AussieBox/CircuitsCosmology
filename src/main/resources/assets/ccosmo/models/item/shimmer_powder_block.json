@@ -1,0 +1,6 @@
+{
+  "parent": "ccosmo:block/shimmer_powder_block",
+  "textures": {
+    "all": "ccosmo:block/shimmer_powder_block"
+  }
+}

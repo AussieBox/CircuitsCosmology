@@ -15,7 +15,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        "bitsofbox" {
+        "ccosmo" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }

@@ -1,9 +1,0 @@
-{
-    "parent": "bitsofbox:block/dragonflame_cactus_block",
-    "textures": {
-        "particle": "bitsofbox:block/dragonflame_cactus_side",
-        "bottom": "bitsofbox:block/dragonflame_cactus_bottom",
-        "top": "bitsofbox:block/dragonflame_cactus_top",
-        "side": "bitsofbox:block/dragonflame_cactus_side"
-    }
-}

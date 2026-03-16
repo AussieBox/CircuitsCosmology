@@ -1,7 +1,0 @@
-{
-	"parent": "bitsofbox:item/shimmer_tools/base/trident_throwing",
-	"textures": {
-		"trident": "bitsofbox:item/shimmer_tools/base/trident_hand",
-		"decoration": "bitsofbox:item/shimmer_tools/netherite/trident_hand_decoration"
-	}
-}

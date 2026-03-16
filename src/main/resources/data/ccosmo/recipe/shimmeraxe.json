@@ -1,0 +1,26 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:netherite_axe"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:creaking_heart"
+    },
+    {
+      "item": "minecraft:recovery_compass"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmeraxe"
+  }
+}

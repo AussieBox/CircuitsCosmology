@@ -1,0 +1,9 @@
+{
+    "parent": "ccosmo:block/dragonflame_cactus_block",
+    "textures": {
+        "particle": "ccosmo:block/dragonflame_cactus_side",
+        "bottom": "ccosmo:block/dragonflame_cactus_bottom",
+        "top": "ccosmo:block/dragonflame_cactus_top",
+        "side": "ccosmo:block/dragonflame_cactus_side"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ccosmo:block/shimmer_powder_block"
+  }
+}

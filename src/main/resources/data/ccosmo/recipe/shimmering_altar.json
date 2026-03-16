@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "DAD",
+    "COC"
+  ],
+  "key": {
+    "P": {
+      "item": "ccosmo:shimmer_powder"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "A": {
+      "item": "minecraft:amethyst_block"
+    },
+    "C": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "id": "ccosmo:shimmering_altar"
+  },
+  "show_notification": true
+}

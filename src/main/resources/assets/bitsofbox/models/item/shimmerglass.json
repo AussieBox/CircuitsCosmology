@@ -1,7 +1,0 @@
-{
-  "parent": "bitsofbox:block/parent/double_layered_block",
-  "textures": {
-    "particle": "bitsofbox:block/shimmerglass",
-    "texture": "bitsofbox:block/shimmerglass"
-  }
-}
