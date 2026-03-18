@@ -5,9 +5,6 @@
   "supported_items": [
     "ccosmo:shimmerfork"
   ],
-  "primary_items": [
-    "ccosmo:shimmerfork"
-  ],
   "weight": 1,
   "max_level": 1,
   "min_cost": {

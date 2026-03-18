@@ -1,0 +1,29 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:book"
+  },
+  "border_proximity": 50,
+  "ingredients": [
+    {
+      "item": "minecraft:diamond_block"
+    },
+    {
+      "item": "ccosmo:shimmer_powder_block"
+    },
+    {
+      "item": "ccosmo:shimmer_powder_block"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:stored_enchantments": {
+        "levels": {
+          "ccosmo:shimmerseep": 1
+        }
+      }
+    },
+    "count": 1,
+    "id": "minecraft:enchanted_book"
+  }
+}

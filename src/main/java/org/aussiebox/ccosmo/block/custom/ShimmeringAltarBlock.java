@@ -7,6 +7,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -24,6 +25,7 @@ import org.aussiebox.ccosmo.recipe.ShimmeringRecipe;
 import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ShimmeringAltarBlock extends BlockWithEntity {
@@ -73,15 +75,14 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
             ShimmeringAltarInventory inventory = shimmeringBlockEntity.toRecipeInventory();
 
             List<RecipeEntry<ShimmeringRecipe>> recipes = world.getRecipeManager().listAllOfType(ModRecipes.SHIMMERING_TYPE);
-
             for (RecipeEntry<ShimmeringRecipe> recipe : recipes) {
                 if (!recipe.value().matches(inventory, world)) continue;
+                shimmeringBlockEntity.startCrafting(recipe.value());
 
                 stack.decrement(1);
-                shimmeringBlockEntity.clear();
-                shimmeringBlockEntity.setAffectedStack(recipe.value().getOutput());
 
                 player.getInventory().markDirty();
+                player.playerScreenHandler.sendContentUpdates();
                 return ItemActionResult.SUCCESS;
             }
 
@@ -90,27 +91,40 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
 
         if (stack.isEmpty()) {
             if (!shimmeringBlockEntity.getInventoryWithoutEmpty().isEmpty()) {
-                player.getInventory().setStack(player.getInventory().selectedSlot, shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
-                shimmeringBlockEntity.fullyRemoveStack(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
+                if (player.isSneaking()) {
+                    ItemStack checkStack = shimmeringBlockEntity.getInventoryWithoutEmpty().getLast();
+                    List<ItemStack> removedStacks = shimmeringBlockEntity.fullyRemoveStacks(checkStack, checkStack.getMaxCount());
 
-                shimmeringBlockEntity.markDirty();
-                player.getInventory().markDirty();
-                return ItemActionResult.SUCCESS;
-            } else if (!shimmeringBlockEntity.getAffectedStack().isEmpty()) {
-                player.getInventory().setStack(player.getInventory().selectedSlot, shimmeringBlockEntity.getAffectedStack());
+                    shimmeringBlockEntity.fullyRemoveStacks(Items.AIR.getDefaultStack(), Collections.frequency(shimmeringBlockEntity.getInventoryWithoutEmpty(), Items.AIR.getDefaultStack())+1);
+
+                    for (ItemStack removedStack : removedStacks) {
+                        player.getInventory().offerOrDrop(removedStack);
+                        player.getInventory().markDirty();
+                        player.playerScreenHandler.sendContentUpdates();
+                    }
+                    if (!removedStacks.isEmpty()) return ItemActionResult.SUCCESS;
+                } else {
+                    player.getInventory().offerOrDrop(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
+                    shimmeringBlockEntity.fullyRemoveStack(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
+                    player.getInventory().markDirty();
+                    player.playerScreenHandler.sendContentUpdates();
+                    return ItemActionResult.SUCCESS;
+                }
+            } else if (!ShimmeringAltarBlockEntity.getAffectedStack().isEmpty()) {
+                player.getInventory().setStack(player.getInventory().selectedSlot, ShimmeringAltarBlockEntity.getAffectedStack());
                 shimmeringBlockEntity.setAffectedStack(ItemStack.EMPTY);
 
-                shimmeringBlockEntity.markDirty();
                 player.getInventory().markDirty();
+                player.playerScreenHandler.sendContentUpdates();
                 return ItemActionResult.SUCCESS;
             }
         } else {
-            if (shimmeringBlockEntity.getAffectedStack() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
+            if (ShimmeringAltarBlockEntity.getAffectedStack() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
             else shimmeringBlockEntity.addStack(stack.copyWithCount(1));
             stack.decrement(1);
 
-            shimmeringBlockEntity.markDirty();
             player.getInventory().markDirty();
+            player.playerScreenHandler.sendContentUpdates();
             return ItemActionResult.SUCCESS;
         }
 

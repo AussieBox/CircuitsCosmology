@@ -41,7 +41,7 @@ public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
             int targetCount = ingredientPair.getRight().toInteger();
             boolean testPass = false;
             boolean amountPass = false;
-            for (Pair<ItemStack, MutableInt> stackPair : CCOSMOUtil.condenseStacks(input.getIngredients())) {
+            for (Pair<ItemStack, MutableInt> stackPair : CCOSMOUtil.condenseStacks(input.getStacks())) {
                 ItemStack stack = stackPair.getLeft();
                 int stackCount = stackPair.getRight().toInteger();
 

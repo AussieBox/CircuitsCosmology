@@ -7,11 +7,6 @@
     "ccosmo:shimmeraxe",
     "ccosmo:shimmerpick"
   ],
-  "primary_items": [
-    "ccosmo:shimmerfork",
-    "ccosmo:shimmeraxe",
-    "ccosmo:shimmerpick"
-  ],
   "weight": 1,
   "max_level": 1,
   "min_cost": {
