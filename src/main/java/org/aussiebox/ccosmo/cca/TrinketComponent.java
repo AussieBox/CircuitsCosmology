@@ -32,6 +32,10 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Getter
     private boolean canFly = false;
     @Getter
+    private int glideDamageCooldown;
+    @Getter
+    private int flightDamageCooldown;
+    @Getter
     private double pyrrhianBeltFlightTime;
     @Getter
     private double pyrrhianBeltGlideTime;
@@ -59,6 +63,16 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         this.sync();
     }
 
+    public void setGlideDamageCooldown(int time) {
+        this.glideDamageCooldown = Math.max(0, time);
+        this.sync();
+    }
+
+    public void changeGlideDamageCooldown(int time) {
+        this.glideDamageCooldown = Math.max(0, this.glideDamageCooldown + time);
+        this.sync();
+    }
+
     public void setFlying(boolean state) {
         this.wasLastFlying = this.flying;
         this.flying = state;
@@ -75,6 +89,16 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         this.sync();
     }
 
+    public void setFlightDamageCooldown(int time) {
+        this.flightDamageCooldown = Math.max(0, time);
+        this.sync();
+    }
+
+    public void changeFlightDamageCooldown(int time) {
+        this.flightDamageCooldown = Math.max(0, this.flightDamageCooldown + time);
+        this.sync();
+    }
+
     @Override
     public void serverTick() {
         ///  -[PYRRHIAN BELT]- ///
@@ -86,10 +110,10 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
             setCanGlide(false);
         }
 
-        if (pyrrhianBeltFlightTime <= 0) setCanFly(false);
+        if (pyrrhianBeltFlightTime <= 0 || flightDamageCooldown > 0) setCanFly(false);
         else setCanFly(true);
 
-        if (pyrrhianBeltGlideTime <= 0) setCanGlide(false);
+        if (pyrrhianBeltGlideTime <= 0 || glideDamageCooldown > 0) setCanGlide(false);
         else setCanGlide(true);
 
         // Switch to gliding when cooldown runs out
@@ -117,12 +141,13 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
             changeFlightTime(-Math.abs(movement.length()));
 
             setGliding(false);
-        } else {
-            changeFlightTime(PyrrhianBeltItem.getBeltFlyTime(player)/100);
-        }
+        } else if (flightDamageCooldown <= 0) changeFlightTime(1);
 
         if (gliding) changeGlideTime(-1);
-        else changeGlideTime(1);
+        else if (glideDamageCooldown <= 0) changeGlideTime(1);
+
+        if (flightDamageCooldown > 0) changeFlightDamageCooldown(-1);
+        if (glideDamageCooldown > 0) changeGlideDamageCooldown(-1);
 
         ///  -[SHIMMER JAR]- ///
 
@@ -159,9 +184,11 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Override
     public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
         this.pyrrhianBeltFlightTime = tag.contains("pyrrhianBeltFlightTime") ? tag.getDouble("pyrrhianBeltFlightTime") : 0;
+        this.flightDamageCooldown = tag.contains("flightDamageCooldown") ? tag.getInt("flightDamageCooldown") : 0;
         this.canFly = tag.contains("canFly") && tag.getBoolean("canFly");
         this.flying = tag.contains("flying") && tag.getBoolean("flying");
         this.pyrrhianBeltGlideTime = tag.contains("pyrrhianBeltGlideTime") ? tag.getDouble("pyrrhianBeltGlideTime") : 0;
+        this.glideDamageCooldown = tag.contains("glideDamageCooldown") ? tag.getInt("glideDamageCooldown") : 0;
         this.canGlide = tag.contains("canGlide") && tag.getBoolean("canGlide");
         this.gliding = tag.contains("gliding") && tag.getBoolean("gliding");
         this.wasLastFlying = tag.contains("wasLastFlying") && tag.getBoolean("wasLastFlying");
@@ -171,9 +198,11 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Override
     public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
         tag.putDouble("pyrrhianBeltFlightTime", this.pyrrhianBeltFlightTime);
+        tag.putInt("flightDamageCooldown", this.flightDamageCooldown);
         tag.putBoolean("canFly", this.canFly);
         tag.putBoolean("flying", this.flying);
         tag.putDouble("pyrrhianBeltGlideTime", this.pyrrhianBeltGlideTime);
+        tag.putInt("glideDamageCooldown", this.glideDamageCooldown);
         tag.putBoolean("canGlide", this.canGlide);
         tag.putBoolean("gliding", this.gliding);
         tag.putBoolean("wasLastFlying", this.wasLastFlying);

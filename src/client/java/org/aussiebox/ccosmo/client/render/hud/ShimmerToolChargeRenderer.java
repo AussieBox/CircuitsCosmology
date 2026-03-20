@@ -11,14 +11,10 @@ import net.minecraft.text.Text;
 import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.CCOSMOConstants;
 import org.aussiebox.ccosmo.cca.ShimmerComponent;
-import org.aussiebox.ccosmo.cca.TrinketComponent;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.item.ModItems;
-import org.aussiebox.ccosmo.item.custom.PyrrhianBeltItem;
 import org.aussiebox.ccosmo.item.custom.ShimmerToolItem;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
-
-import java.util.Objects;
 
 public class ShimmerToolChargeRenderer {
 
@@ -62,13 +58,8 @@ public class ShimmerToolChargeRenderer {
         int height = MinecraftClient.getInstance().getWindow().getScaledHeight();
         int y = height/2+5+textRenderer.fontHeight;
 
-        TrinketComponent trinketComponent = TrinketComponent.KEY.get(player);
-        double flightTime = trinketComponent.getPyrrhianBeltFlightTime();
-        double flightTimeMaximum = PyrrhianBeltItem.getBeltFlyTime(player);
-        if (CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_BELT) && flightTime < flightTimeMaximum) {
-            y += 10;
-            if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5"))
-                y += 2 + textRenderer.fontHeight;
+        if (CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_BELT) && PyrrhianBeltFlightRenderer.y != height/2+6+MinecraftClient.getInstance().textRenderer.fontHeight) {
+            y = PyrrhianBeltFlightRenderer.y+textRenderer.fontHeight+5;
         }
 
         context.drawText(

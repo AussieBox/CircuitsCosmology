@@ -45,6 +45,10 @@ repositories {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
+    maven {
+        name = "Mixin Squared"
+        url = "https://maven.bawnorton.com/releases"
+    }
 }
 
 dependencies {
@@ -66,6 +70,8 @@ dependencies {
     modApi("maven.modrinth:enchancement:${project.enchancement_version}")
 
     modCompileOnly("mezz.jei:jei-${jei_mc_version}-fabric-api:${jei_version}")
+
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
 }
 
 processResources {

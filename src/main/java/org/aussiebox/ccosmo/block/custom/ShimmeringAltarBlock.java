@@ -5,24 +5,28 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.aussiebox.ccosmo.blockentity.ModBlockEntities;
 import org.aussiebox.ccosmo.blockentity.ShimmeringAltarBlockEntity;
 import org.aussiebox.ccosmo.item.ModItems;
 import org.aussiebox.ccosmo.recipe.ModRecipes;
 import org.aussiebox.ccosmo.recipe.ShimmeringRecipe;
 import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
+import org.aussiebox.ccosmo.util.CCOSMOUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -57,6 +61,26 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return COLLISION_SHAPE;
+    }
+
+    @Override
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        super.afterBreak(world, player, pos, state, blockEntity, tool);
+        if (!(blockEntity instanceof ShimmeringAltarBlockEntity shimmeringBlockEntity)) return;
+
+        if (!ShimmeringAltarBlockEntity.getAffectedStack().isEmpty()) {
+            ItemEntity entity = new ItemEntity(world, pos.getX(), pos.getY()+0.5, pos.getZ(), ShimmeringAltarBlockEntity.getAffectedStack());
+            entity.setToDefaultPickupDelay();
+            world.spawnEntity(entity);
+        }
+        List<Pair<ItemStack, MutableInt>> inventory = CCOSMOUtil.condenseStacks(shimmeringBlockEntity.getInventoryWithoutEmpty());
+        for (Pair<ItemStack, MutableInt> pair : inventory) {
+            ItemEntity entity = new ItemEntity(world, pos.getX(), pos.getY()+0.5, pos.getZ(), pair.getLeft().copyWithCount(pair.getRight().toInteger()));
+            entity.setToDefaultPickupDelay();
+            world.spawnEntity(entity);
+        }
+        shimmeringBlockEntity.setAffectedStack(ItemStack.EMPTY);
+        shimmeringBlockEntity.clear();
     }
 
     @Override
