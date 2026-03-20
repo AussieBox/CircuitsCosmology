@@ -1,4 +1,4 @@
-package org.aussiebox.ccosmo.client.hud;
+package org.aussiebox.ccosmo.client.render.hud;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

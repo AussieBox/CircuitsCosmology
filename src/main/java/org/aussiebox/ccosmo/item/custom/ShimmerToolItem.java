@@ -34,19 +34,17 @@ import org.aussiebox.ccosmo.entity.ModEntities;
 import org.aussiebox.ccosmo.entity.PickarangEntity;
 import org.aussiebox.ccosmo.entity.ShimmerforkEntity;
 import org.aussiebox.ccosmo.item.ModItems;
+import org.aussiebox.ccosmo.item.ModToolMaterials;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ShimmerToolItem extends MiningToolItem {
     protected static final Map<Block, Block> STRIPPED_BLOCKS;
 
     public ShimmerToolItem(Item.Settings settings) {
-        super(ToolMaterials.NETHERITE, BlockTags.AIR, settings);
+        super(ModToolMaterials.SHIMMERING_NETHERITE, BlockTags.AIR, settings);
     }
 
     @Override
@@ -61,15 +59,17 @@ public class ShimmerToolItem extends MiningToolItem {
             stack.set(ModDataComponentTypes.HAS_BORDERLINKED, true);
         else stack.set(ModDataComponentTypes.HAS_BORDERLINKED, false);
 
-        if (stack.isOf(ModItems.SHIMMERPICK) && stack.get(DataComponentTypes.TOOL) != ToolMaterials.NETHERITE.createComponent(BlockTags.PICKAXE_MINEABLE))
-            stack.set(DataComponentTypes.TOOL, ToolMaterials.NETHERITE.createComponent(BlockTags.PICKAXE_MINEABLE));
-        if (stack.isOf(ModItems.SHIMMERAXE) && stack.get(DataComponentTypes.TOOL) != ToolMaterials.NETHERITE.createComponent(BlockTags.AXE_MINEABLE))
-            stack.set(DataComponentTypes.TOOL, ToolMaterials.NETHERITE.createComponent(BlockTags.AXE_MINEABLE));
+        if (stack.isOf(ModItems.SHIMMERPICK) && !Objects.equals(stack.get(DataComponentTypes.TOOL), ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.PICKAXE_MINEABLE)))
+            stack.set(DataComponentTypes.TOOL, ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.PICKAXE_MINEABLE));
+        if (stack.isOf(ModItems.SHIMMERAXE) && !Objects.equals(stack.get(DataComponentTypes.TOOL), ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.AXE_MINEABLE)))
+            stack.set(DataComponentTypes.TOOL, ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.AXE_MINEABLE));
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
+
+        CCOSMO.LOGGER.info(String.valueOf(Objects.requireNonNull(stack.get(DataComponentTypes.TOOL)).getSpeed(Blocks.DEEPSLATE.getDefaultState())));
 
         if (stack.get(ModDataComponentTypes.SHIMMER_TOOL_TYPE) == CCOSMOConstants.ShimmerToolType.TRIDENT) {
             if (!user.isSneaking()) {

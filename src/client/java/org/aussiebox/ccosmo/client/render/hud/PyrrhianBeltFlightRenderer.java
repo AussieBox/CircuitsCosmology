@@ -1,4 +1,4 @@
-package org.aussiebox.ccosmo.client.hud;
+package org.aussiebox.ccosmo.client.render.hud;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -30,9 +30,11 @@ public class PyrrhianBeltFlightRenderer {
         TrinketComponent trinketComponent = TrinketComponent.KEY.get(player);
         double flightTime = trinketComponent.getPyrrhianBeltFlightTime();
         double flightTimeMaximum = PyrrhianBeltItem.getBeltFlyTime(player);
+        double glideTime = trinketComponent.getPyrrhianBeltGlideTime();
+        double glideTimeMaximum = PyrrhianBeltItem.getBeltGlideTime(player);
 
         if (!player.getAbilities().flying)
-            if (flightTime >= flightTimeMaximum) return;
+            if (flightTime >= flightTimeMaximum && glideTime >= glideTimeMaximum) return;
         if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_BELT))
             return;
 
@@ -52,6 +54,32 @@ public class PyrrhianBeltFlightRenderer {
                 PROGRESS,
                 width/2-41+1,
                 height/2+14,
+                progress,
+                8,
+                0,
+                0,
+                progress,
+                8,
+                79,
+                8
+        );
+
+        progress = (int) (glideTime*79/glideTimeMaximum); // ({int}*{textureWidth}/{maxInt})
+        context.drawTexture(
+                BACKGROUND,
+                width/2-41,
+                height/2+24,
+                0,
+                0,
+                81,
+                8,
+                81,
+                8
+        );
+        context.drawTexture(
+                PROGRESS,
+                width/2-41+1,
+                height/2+24,
                 progress,
                 8,
                 0,

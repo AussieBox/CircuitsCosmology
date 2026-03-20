@@ -42,6 +42,11 @@ public class PyrrhianBeltItem extends TrinketItem {
         return CCOSMOConstants.pyrrhianBeltFlightTimeMaximum;
     }
 
+    public static double getBeltGlideTime(PlayerEntity player) {
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.buffedPyrrhianBeltGlideTimeMaximum;
+        return CCOSMOConstants.pyrrhianBeltGlideTimeMaximum;
+    }
+
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
         super.appendTooltip(stack, context, list, type);

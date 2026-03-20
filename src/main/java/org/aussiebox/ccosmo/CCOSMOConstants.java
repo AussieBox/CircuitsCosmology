@@ -69,4 +69,6 @@ public interface CCOSMOConstants {
 
     double pyrrhianBeltFlightTimeMaximum = 75;
     double buffedPyrrhianBeltFlightTimeMaximum = 150;
+    double pyrrhianBeltGlideTimeMaximum = 200;
+    double buffedPyrrhianBeltGlideTimeMaximum = 300;
 }

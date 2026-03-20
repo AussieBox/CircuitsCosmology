@@ -28,9 +28,13 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Getter
     private boolean flying = false;
     @Getter
+    private boolean canGlide = false;
+    @Getter
     private boolean canFly = false;
     @Getter
     private double pyrrhianBeltFlightTime;
+    @Getter
+    private double pyrrhianBeltGlideTime;
     @Getter
     private boolean wasLastFlying = false;
     @Getter
@@ -42,6 +46,16 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
 
     public void setGliding(boolean state) {
         this.gliding = state;
+        this.sync();
+    }
+
+    public void setCanGlide(boolean state) {
+        this.canGlide = state;
+        this.sync();
+    }
+
+    public void changeGlideTime(double time) {
+        this.pyrrhianBeltGlideTime = Math.clamp(this.pyrrhianBeltGlideTime + time, 0, PyrrhianBeltItem.getBeltGlideTime(player));
         this.sync();
     }
 
@@ -65,23 +79,31 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     public void serverTick() {
         ///  -[PYRRHIAN BELT]- ///
 
+        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_BELT)) {
+            setFlying(false);
+            setCanFly(false);
+            setGliding(false);
+            setCanGlide(false);
+        }
+
         if (pyrrhianBeltFlightTime <= 0) setCanFly(false);
         else setCanFly(true);
+
+        if (pyrrhianBeltGlideTime <= 0) setCanGlide(false);
+        else setCanGlide(true);
 
         // Switch to gliding when cooldown runs out
         if (!canFly && flying) {
             setFlying(false);
-            if (wasLastFlying) setGliding(true);
+            if (wasLastFlying && canGlide) setGliding(true);
+        }
+
+        if (!canGlide && gliding) {
+            setGliding(false);
         }
 
         if (player.isOnGround() || player.isSwimming() || player.hasVehicle() || player.isInCreativeMode() || player.isSpectator()) {
             setFlying(false);
-            setGliding(false);
-        }
-
-        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_BELT)) {
-            setFlying(false);
-            setCanFly(false);
             setGliding(false);
         }
 
@@ -98,6 +120,9 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         } else {
             changeFlightTime(PyrrhianBeltItem.getBeltFlyTime(player)/100);
         }
+
+        if (gliding) changeGlideTime(-1);
+        else changeGlideTime(1);
 
         ///  -[SHIMMER JAR]- ///
 
@@ -136,6 +161,8 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         this.pyrrhianBeltFlightTime = tag.contains("pyrrhianBeltFlightTime") ? tag.getDouble("pyrrhianBeltFlightTime") : 0;
         this.canFly = tag.contains("canFly") && tag.getBoolean("canFly");
         this.flying = tag.contains("flying") && tag.getBoolean("flying");
+        this.pyrrhianBeltGlideTime = tag.contains("pyrrhianBeltGlideTime") ? tag.getDouble("pyrrhianBeltGlideTime") : 0;
+        this.canGlide = tag.contains("canGlide") && tag.getBoolean("canGlide");
         this.gliding = tag.contains("gliding") && tag.getBoolean("gliding");
         this.wasLastFlying = tag.contains("wasLastFlying") && tag.getBoolean("wasLastFlying");
         this.nonGroundedTime = tag.contains("nonGroundedTime") ? tag.getInt("nonGroundedTime") : 0;
@@ -146,6 +173,8 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         tag.putDouble("pyrrhianBeltFlightTime", this.pyrrhianBeltFlightTime);
         tag.putBoolean("canFly", this.canFly);
         tag.putBoolean("flying", this.flying);
+        tag.putDouble("pyrrhianBeltGlideTime", this.pyrrhianBeltGlideTime);
+        tag.putBoolean("canGlide", this.canGlide);
         tag.putBoolean("gliding", this.gliding);
         tag.putBoolean("wasLastFlying", this.wasLastFlying);
         tag.putInt("nonGroundedTime", this.nonGroundedTime);
