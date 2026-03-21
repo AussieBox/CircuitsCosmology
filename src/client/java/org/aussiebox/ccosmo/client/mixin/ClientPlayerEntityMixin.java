@@ -29,7 +29,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     }
 
     @Inject(method = "tickMovement", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z", shift = At.Shift.BEFORE, opcode = Opcodes.GETFIELD))
-    private void ccosmo$tickMovement(CallbackInfo ci, @Local(name = "bl") boolean bl) {
+    private void ccosmo$tickMovement(CallbackInfo ci, @Local(ordinal = 0) boolean bl) {
         ClientPlayerEntity player = (ClientPlayerEntity)(Object) this;
         if (player == null) return;
 
