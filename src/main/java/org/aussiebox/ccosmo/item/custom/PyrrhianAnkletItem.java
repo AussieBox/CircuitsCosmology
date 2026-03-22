@@ -13,6 +13,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.CCOSMOConstants;
 
 import java.util.List;
@@ -49,7 +50,22 @@ public class PyrrhianAnkletItem extends TrinketItem {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
-        super.appendTooltip(stack, context, list, type);
-        // TODO: Add pyrrhian anklet tooltip
+        list.add(1, Text.literal(" "));
+        list.add(2, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.1").withColor(0xFFAAAAAA));
+        list.add(3, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.2").withColor(0xFFAAAAAA));
+        list.add(4, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.3").withColor(0xFFAAAAAA));
+        list.add(5, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.4").withColor(0xFFAAAAAA));
+        list.add(6, Text.literal(" "));
+        if (!(stack.getHolder() instanceof LivingEntity)) return;
+
+        CCOSMO.LOGGER.info(String.valueOf(stack.getHolder().getName()));
+        if (Objects.equals(stack.getHolder().getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) {
+            list.add(7, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.buffed.1").withColor(0xFFAAAAAA));
+            list.add(8, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.buffed.2").withColor(0xFFAAAAAA));
+        } else {
+            list.add(7, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.normal.1").withColor(0xFFAAAAAA));
+            list.add(8, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.normal.2").withColor(0xFFAAAAAA));
+        }
+        list.add(9, Text.literal(" "));
     }
 }

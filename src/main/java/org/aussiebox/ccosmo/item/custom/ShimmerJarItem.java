@@ -29,7 +29,9 @@ public class ShimmerJarItem extends TrinketItem {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
-        super.appendTooltip(stack, context, list, type);
-        // TODO: Add shimmer jar tooltip
+        list.add(1, Text.literal(" "));
+        list.add(2, Text.translatable("item.ccosmo.shimmer_jar.tooltip.1").withColor(0xFF555555));
+        list.add(3, Text.translatable("item.ccosmo.shimmer_jar.tooltip.2").withColor(0xFF555555));
+        list.add(4, Text.literal(" "));
     }
 }

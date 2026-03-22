@@ -48,31 +48,8 @@ public class DragonflameCactusItem extends Item {
         return TypedActionResult.success(itemStack);
     }
 
-//    @Override
-//    public void onCraftByPlayer(ItemStack stack, World world, PlayerEntity player) {
-//        super.onCraftByPlayer(stack, world, player);
-//        String craftType = "add";
-//        ItemStack cactus = this.getDefaultStack();
-//        for (int i = 1; i <= 9; i++) {
-//            if (player.currentScreenHandler.getSlot(i).getStack().isOf(ModItems.DRAGONFLAME_CACTUS)) {
-//                cactus = player.currentScreenHandler.getSlot(i).getStack();
-//            }
-//            if (player.currentScreenHandler.getSlot(i).getStack().isOf(Items.GUNPOWDER)) {
-//                craftType = "subtract";
-//            }
-//        }
-//        if (craftType.equals("add")) {
-//            stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, cactus.getOrDefault(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, 20) + 10);
-//        }
-//        if (craftType.equals("subtract")) {
-//            stack.set(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, Math.max(cactus.getOrDefault(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, 20) - 2, 1));
-//        }
-//        player.getInventory().markDirty();
-//    }
-
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
-        super.appendTooltip(stack, context, list, type);
         if (stack.contains(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE)) {
             int fuseTicks = stack.getOrDefault(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, 20);
             String fuseSeconds = new DecimalFormat("0.00").format((double) fuseTicks/20);

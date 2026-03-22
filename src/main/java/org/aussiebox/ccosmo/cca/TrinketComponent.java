@@ -1,6 +1,7 @@
 package org.aussiebox.ccosmo.cca;
 
 import lombok.Getter;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -23,29 +24,27 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     public static final ComponentKey<TrinketComponent> KEY = ComponentRegistry.getOrCreate(CCOSMO.id("trinket_component"), TrinketComponent.class);
     private final PlayerEntity player;
 
-    @Getter
-    private boolean gliding = false;
-    @Getter
-    private boolean flying = false;
-    @Getter
-    private boolean canGlide = false;
-    @Getter
-    private boolean canFly = false;
-    @Getter
-    private int glideDamageCooldown;
-    @Getter
-    private int flightDamageCooldown;
-    @Getter
-    private double pyrrhianAnkletFlightTime;
-    @Getter
-    private double pyrrhianAnkletGlideTime;
-    @Getter
-    private boolean wasLastFlying = false;
-    @Getter
-    private int nonGroundedTime;
+    @Getter private boolean gliding = false;
+    @Getter private boolean flying = false;
+    @Getter private boolean canGlide = false;
+    @Getter private boolean canFly = false;
+    @Getter private int glideDamageCooldown;
+    @Getter private int flightDamageCooldown;
+    @Getter private double pyrrhianAnkletFlightTime;
+    @Getter private double pyrrhianAnkletGlideTime;
+    @Getter private boolean wasLastFlying = false;
+    @Getter private int nonGroundedTime;
+    @Getter private int enchancementAirJumpsLeft = 0;
+    @Getter private boolean enchancementHasAirJump = false;
 
     public TrinketComponent(PlayerEntity player) {
         this.player = player;
+    }
+
+    public void setEnchancementData(int airJumpsLeft, boolean hasAirJump) {
+        enchancementAirJumpsLeft = airJumpsLeft;
+        enchancementHasAirJump = hasAirJump;
+        sync();
     }
 
     public void setGliding(boolean state) {
@@ -138,13 +137,13 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         // Manage flight time
         if (flying) {
             Vec3d movement = player.getMovement();
-            changeFlightTime(-Math.abs(movement.length()));
+            changeFlightTime(-(Math.abs(movement.x)+Math.abs(movement.y)+Math.abs(movement.z)));
 
             setGliding(false);
-        } else if (flightDamageCooldown <= 0) changeFlightTime(1);
+        } else if (flightDamageCooldown <= 0) changeFlightTime(PyrrhianAnkletItem.getAnkletFlyTime(player)/250);
 
         if (gliding) changeGlideTime(-1);
-        else if (glideDamageCooldown <= 0) changeGlideTime(1);
+        else if (glideDamageCooldown <= 0) changeGlideTime(PyrrhianAnkletItem.getAnkletGlideTime(player)/250);
 
         if (flightDamageCooldown > 0) changeFlightDamageCooldown(-1);
         if (glideDamageCooldown > 0) changeGlideDamageCooldown(-1);
@@ -193,6 +192,10 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         this.gliding = tag.contains("gliding") && tag.getBoolean("gliding");
         this.wasLastFlying = tag.contains("wasLastFlying") && tag.getBoolean("wasLastFlying");
         this.nonGroundedTime = tag.contains("nonGroundedTime") ? tag.getInt("nonGroundedTime") : 0;
+        if (FabricLoader.getInstance().isModLoaded("enchancement")) {
+            this.enchancementAirJumpsLeft = tag.contains("enchancementAirJumpsLeft") ? tag.getInt("enchancementAirJumpsLeft") : 0;
+            this.enchancementHasAirJump = tag.contains("enchancementHasAirJump") && tag.getBoolean("enchancementHasAirJump");
+        }
     }
 
     @Override
@@ -207,5 +210,9 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         tag.putBoolean("gliding", this.gliding);
         tag.putBoolean("wasLastFlying", this.wasLastFlying);
         tag.putInt("nonGroundedTime", this.nonGroundedTime);
+        if (FabricLoader.getInstance().isModLoaded("enchancement")) {
+            tag.putInt("enchancementAirJumpsLeft", this.enchancementAirJumpsLeft);
+            tag.putBoolean("enchancementHasAirJump", this.enchancementHasAirJump);
+        }
     }
 }

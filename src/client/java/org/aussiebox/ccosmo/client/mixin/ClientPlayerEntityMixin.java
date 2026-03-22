@@ -3,6 +3,7 @@ package org.aussiebox.ccosmo.client.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -48,6 +49,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             }
         }
 
+        if (FabricLoader.getInstance().isModLoaded("enchancement") && !trinkets.isFlying() && trinkets.isEnchancementHasAirJump() && trinkets.getEnchancementAirJumpsLeft() > 0) return;
         if (trinkets.isCanFly() && !bl && player.input.jumping) {
             if (this.abilityResyncCountdown == 0) {
                 this.abilityResyncCountdown = 7;

@@ -4,6 +4,7 @@
   "package": "org.aussiebox.ccosmo.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EnchancementAirJumpComponentMixin",
     "EnchancementItemStackMixinOverride",
     "EnchancementRepairMaterialMixin",
     "LivingEntityMixin",

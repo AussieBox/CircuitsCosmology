@@ -117,8 +117,9 @@ public class CCOSMOClient implements ClientModInitializer {
 
             if ((toggleFlightKeybind.wasPressed() && flightToggleCooldown == 0)) {
                 if (CCOSMOUtil.playerHasTrinket(client.player, ModItems.PYRRHIAN_ANKLET) && TrinketComponent.KEY.get(client.player).isCanFly()) {
+                    if (client.player.isOnGround()) client.player.jump();
                     ClientPlayNetworking.send(new PyrrhianAnkletFlightC2SPacket(!TrinketComponent.KEY.get(client.player).isFlying()));
-                    flightToggleCooldown = 20;
+                    flightToggleCooldown = 7;
                 }
             }
 

@@ -259,8 +259,6 @@ public class ShimmerToolItem extends MiningToolItem {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
-        super.appendTooltip(stack, context, list, type);
-
         int maxCharges = stack.getOrDefault(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 5);
         int charges = stack.getOrDefault(ModDataComponentTypes.SHIMMER_TOOL_CHARGES, 0);
         int emptySlots = maxCharges - charges;

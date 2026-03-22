@@ -37,7 +37,7 @@ public class PyrrhianAnkletFlightRenderer {
                 return;
 
         if (flightTime < flightTimeMaximum || trinketComponent.getGlideDamageCooldown() > 0) {
-            int progress = (int) (flightTime*50/flightTimeMaximum); // ({int}*{textureWidth}/{maxInt})
+            int progress = (int) (flightTime*100/flightTimeMaximum); // ({int}*{textureWidth}/{maxInt})
             context.fill(
                     width/2-50,
                     y,
@@ -48,7 +48,7 @@ public class PyrrhianAnkletFlightRenderer {
             context.fill(
                     width/2-50,
                     y,
-                    width/2+(progress),
+                    width/2-50+(progress),
                     y+2,
                     (trinketComponent.getFlightDamageCooldown() > 0) ? 0xFFFF5555 : 0xFFBBF7FA
             );
@@ -56,7 +56,7 @@ public class PyrrhianAnkletFlightRenderer {
         }
 
         if (glideTime < glideTimeMaximum || trinketComponent.getGlideDamageCooldown() > 0) {
-            int progress = (int) (glideTime*50/glideTimeMaximum); // ({int}*{textureWidth}/{maxInt})
+            int progress = (int) (glideTime*100/glideTimeMaximum); // ({int}*{textureWidth}/{maxInt})
             context.fill(
                     width/2-50,
                     y,
@@ -67,7 +67,7 @@ public class PyrrhianAnkletFlightRenderer {
             context.fill(
                     width/2-50,
                     y,
-                    width/2+(progress),
+                    width/2-50+(progress),
                     y+2,
                     (trinketComponent.getGlideDamageCooldown() > 0) ? 0xFFFF5555 : 0xFFF7FABB
             );

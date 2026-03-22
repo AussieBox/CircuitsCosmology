@@ -67,8 +67,8 @@ public interface CCOSMOConstants {
 
     int shimmerpickReturnTime = 30;
 
-    double pyrrhianAnkletFlightTimeMaximum = 50;
-    double buffedPyrrhianAnkletFlightTimeMaximum = 75;
+    double pyrrhianAnkletFlightTimeMaximum = 75;
+    double buffedPyrrhianAnkletFlightTimeMaximum = 100;
     double pyrrhianAnkletGlideTimeMaximum = 100;
     double buffedPyrrhianAnkletGlideTimeMaximum = 150;
 }
