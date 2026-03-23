@@ -27,16 +27,16 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
 
     @Override
     public void render(ShimmeringAltarBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        ItemStack stack = ShimmeringAltarBlockEntity.getAffectedStack();
+        ItemStack stack = entity.getAffectedStack();
         if (stack.isEmpty()) return;
         if (entity.getWorld() == null) return;
 
-        double craftTime = MathHelper.lerp(tickDelta, ShimmeringAltarBlockEntity.getLastCraftAnimationTicks(), (double) ShimmeringAltarBlockEntity.getCraftAnimationTicks())/40.0;
-        double returnTime = MathHelper.lerp(tickDelta, ShimmeringAltarBlockEntity.getLastReturnAnimationTicks(), (double) ShimmeringAltarBlockEntity.getReturnAnimationTicks())/40.0;
+        double craftTime = MathHelper.lerp(tickDelta, entity.getLastCraftAnimationTicks(), (double) entity.getCraftAnimationTicks())/40.0;
+        double returnTime = MathHelper.lerp(tickDelta, entity.getLastReturnAnimationTicks(), (double) entity.getReturnAnimationTicks())/40.0;
 
         double yOffset = 0;
-        if (ShimmeringAltarBlockEntity.getCraftAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(1, 0, craftTime, true);
-        else if (ShimmeringAltarBlockEntity.getReturnAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(0, 1, returnTime, true);
+        if (entity.getCraftAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(1, 0, craftTime, true);
+        else if (entity.getReturnAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(0, 1, returnTime, true);
 
         matrices.push();
         matrices.translate(0.5, yOffset + 1.2, 0.5);
@@ -58,7 +58,7 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
         matrices.pop();
 
         double radius = 0.75;
-        if (ShimmeringAltarBlockEntity.getCraftAnimationTicks() > 0) {
+        if (entity.getCraftAnimationTicks() > 0) {
             circleRotation += CCOSMOUtil.smoothInterpolate(0.2, 0.001, craftTime, true);
             radius = CCOSMOUtil.smoothInterpolate(0.35, 0.75, craftTime, true);
         }

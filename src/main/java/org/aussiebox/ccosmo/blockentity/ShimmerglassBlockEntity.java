@@ -1,5 +1,6 @@
 package org.aussiebox.ccosmo.blockentity;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -20,7 +21,7 @@ import java.util.UUID;
 
 public class ShimmerglassBlockEntity extends BlockEntity {
     private BlockState previousBlockState;
-    private int ticksAliveLeft;
+    @Getter private int ticksAliveLeft;
     private UUID owner;
 
     public ShimmerglassBlockEntity(BlockPos pos, BlockState state) {
@@ -35,10 +36,6 @@ public class ShimmerglassBlockEntity extends BlockEntity {
     public void setPreviousBlockState(BlockState blockState) {
         previousBlockState = blockState;
         markDirty();
-    }
-
-    public int getTicksAliveLeft() {
-        return ticksAliveLeft;
     }
 
     public void setTicksAliveLeft(int ticks) {

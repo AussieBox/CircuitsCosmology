@@ -8,7 +8,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -29,7 +28,6 @@ import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ShimmeringAltarBlock extends BlockWithEntity {
@@ -47,6 +45,11 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CODEC;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
@@ -68,8 +71,8 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
         super.afterBreak(world, player, pos, state, blockEntity, tool);
         if (!(blockEntity instanceof ShimmeringAltarBlockEntity shimmeringBlockEntity)) return;
 
-        if (!ShimmeringAltarBlockEntity.getAffectedStack().isEmpty()) {
-            ItemEntity entity = new ItemEntity(world, pos.getX(), pos.getY()+0.5, pos.getZ(), ShimmeringAltarBlockEntity.getAffectedStack());
+        if (!shimmeringBlockEntity.getAffectedStack().isEmpty()) {
+            ItemEntity entity = new ItemEntity(world, pos.getX(), pos.getY()+0.5, pos.getZ(), shimmeringBlockEntity.getAffectedStack());
             entity.setToDefaultPickupDelay();
             world.spawnEntity(entity);
         }
@@ -84,17 +87,12 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Override
     protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (hand == Hand.OFF_HAND) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (!(blockEntity instanceof ShimmeringAltarBlockEntity shimmeringBlockEntity)) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        if (ShimmeringAltarBlockEntity.getCraftAnimationTicks() > 0 || ShimmeringAltarBlockEntity.getReturnAnimationTicks() > 0) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (shimmeringBlockEntity.getCraftAnimationTicks() > 0 || shimmeringBlockEntity.getReturnAnimationTicks() > 0) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         if (stack.isOf(ModItems.SHIMMER_POWDER)) {
             ShimmeringAltarInventory inventory = shimmeringBlockEntity.toRecipeInventory();
@@ -117,26 +115,19 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
         if (stack.isEmpty()) {
             if (!shimmeringBlockEntity.getInventoryWithoutEmpty().isEmpty()) {
                 if (player.isSneaking()) {
-                    ItemStack checkStack = shimmeringBlockEntity.getInventoryWithoutEmpty().getLast();
-                    List<ItemStack> removedStacks = shimmeringBlockEntity.fullyRemoveStacks(checkStack, checkStack.getMaxCount());
-
-                    shimmeringBlockEntity.fullyRemoveStacks(Items.AIR.getDefaultStack(), Collections.frequency(shimmeringBlockEntity.getInventoryWithoutEmpty(), Items.AIR.getDefaultStack())+1);
-
-                    for (ItemStack removedStack : removedStacks) {
-                        player.getInventory().offerOrDrop(removedStack.copy());
-                        player.getInventory().markDirty();
-                        player.playerScreenHandler.sendContentUpdates();
+                    for (ItemStack inventoryStack : shimmeringBlockEntity.getInventoryWithoutEmpty()) {
+                        player.getInventory().offerOrDrop(inventoryStack.copy());
                     }
-                    if (!removedStacks.isEmpty()) return ItemActionResult.SUCCESS;
+                    shimmeringBlockEntity.clear();
                 } else {
                     player.getInventory().offerOrDrop(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast().copy());
                     shimmeringBlockEntity.fullyRemoveStack(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
                     player.getInventory().markDirty();
                     player.playerScreenHandler.sendContentUpdates();
-                    return ItemActionResult.SUCCESS;
                 }
-            } else if (!ShimmeringAltarBlockEntity.getAffectedStack().copy().isEmpty()) {
-                player.getInventory().setStack(player.getInventory().selectedSlot, ShimmeringAltarBlockEntity.getAffectedStack().copy());
+                return ItemActionResult.SUCCESS;
+            } else if (!shimmeringBlockEntity.getAffectedStack().copy().isEmpty()) {
+                player.getInventory().setStack(player.getInventory().selectedSlot, shimmeringBlockEntity.getAffectedStack().copy());
                 shimmeringBlockEntity.setAffectedStack(ItemStack.EMPTY);
 
                 player.getInventory().markDirty();
@@ -145,7 +136,7 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
             }
         } else {
             if (shimmeringBlockEntity.size() > 32) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-            if (ShimmeringAltarBlockEntity.getAffectedStack().copy() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
+            if (shimmeringBlockEntity.getAffectedStack().copy() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
             else shimmeringBlockEntity.addStack(stack.copyWithCount(1));
             stack.decrement(1);
 
