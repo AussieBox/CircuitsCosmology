@@ -144,7 +144,7 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
                 return ItemActionResult.SUCCESS;
             }
         } else {
-            if (shimmeringBlockEntity.size() > 64) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            if (shimmeringBlockEntity.size() > 32) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             if (ShimmeringAltarBlockEntity.getAffectedStack().copy() == ItemStack.EMPTY) shimmeringBlockEntity.setAffectedStack(stack.copyWithCount(1));
             else shimmeringBlockEntity.addStack(stack.copyWithCount(1));
             stack.decrement(1);
