@@ -121,7 +121,7 @@ public class ShimmeringAltarBlock extends BlockWithEntity {
                     shimmeringBlockEntity.clear();
                 } else {
                     player.getInventory().offerOrDrop(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast().copy());
-                    shimmeringBlockEntity.fullyRemoveStack(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
+                    shimmeringBlockEntity.removeStack(shimmeringBlockEntity.getInventoryWithoutEmpty().getLast());
                     player.getInventory().markDirty();
                     player.playerScreenHandler.sendContentUpdates();
                 }

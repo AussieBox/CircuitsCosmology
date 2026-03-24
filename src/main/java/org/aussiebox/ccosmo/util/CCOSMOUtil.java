@@ -143,7 +143,7 @@ public class CCOSMOUtil {
         return actualIngredients;
     }
 
-    public static List<Pair<ItemStack, MutableInt>> condenseStacks(DefaultedList<ItemStack> stacks) {
+    public static List<Pair<ItemStack, MutableInt>> condenseStacks(List<ItemStack> stacks) {
         List<Pair<ItemStack, MutableInt>> actualStacks = new ArrayList<>();
         for (ItemStack stack : stacks) {
             boolean existed = false;

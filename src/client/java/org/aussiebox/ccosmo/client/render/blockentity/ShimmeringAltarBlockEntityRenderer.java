@@ -7,7 +7,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.aussiebox.ccosmo.blockentity.ShimmeringAltarBlockEntity;
@@ -33,6 +32,9 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
 
         double craftTime = MathHelper.lerp(tickDelta, entity.getLastCraftAnimationTicks(), (double) entity.getCraftAnimationTicks())/40.0;
         double returnTime = MathHelper.lerp(tickDelta, entity.getLastReturnAnimationTicks(), (double) entity.getReturnAnimationTicks())/40.0;
+
+        if (entity.getCraftAnimationTicks() > 0 && entity.getLastCraftAnimationTicks() <= entity.getCraftAnimationTicks()) craftTime = 1;
+        if (entity.getReturnAnimationTicks() > 0 && entity.getLastReturnAnimationTicks() <= entity.getReturnAnimationTicks()) returnTime = 1;
 
         double yOffset = 0;
         if (entity.getCraftAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(1, 0, craftTime, true);
@@ -64,7 +66,7 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
         }
         circleRotation += 0.001;
 
-        DefaultedList<ItemStack> ingredients = entity.getInventoryWithoutEmpty();
+        List<ItemStack> ingredients = entity.getInventoryWithoutEmpty();
         List<Vector2f> translations = CCOSMOUtil.calculateCirclePoints(0, 0, radius, circleRotation, ingredients.size());
         for (ItemStack itemStack : ingredients) {
             Vector2f translation = translations.removeFirst();

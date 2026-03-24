@@ -10,8 +10,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
@@ -28,14 +29,12 @@ import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.recipe.ShimmeringRecipe;
 import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
 public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory, Clearable {
     @Getter private ItemStack affectedStack = ItemStack.EMPTY;
-    @Getter private final DefaultedList<ItemStack> inventory = DefaultedList.of();
+    @Getter private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(32, ItemStack.EMPTY);
     @Getter @Setter private ShimmeringRecipe recipeBeingCrafted = null;
     @Getter @Setter private int craftAnimationTicks;
     @Getter @Setter private int lastCraftAnimationTicks;
@@ -47,13 +46,13 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, ShimmeringAltarBlockEntity entity) {
+        entity.setLastCraftAnimationTicks(entity.getCraftAnimationTicks());
+        entity.setLastReturnAnimationTicks(entity.getReturnAnimationTicks());
+
+        if (entity.getCraftAnimationTicks() > 0) entity.setCraftAnimationTicks(entity.getCraftAnimationTicks()-1);
+        if (entity.getCraftAnimationTicks() == 0 && entity.getReturnAnimationTicks() > 0) entity.setReturnAnimationTicks(entity.getReturnAnimationTicks()-1);
+
         if (world != null && !world.isClient) {
-            entity.setLastCraftAnimationTicks(entity.getLastCraftAnimationTicks());
-            entity.setLastReturnAnimationTicks(entity.getLastReturnAnimationTicks());
-
-            if (entity.getCraftAnimationTicks() > 0) entity.setCraftAnimationTicks(entity.getLastCraftAnimationTicks()-1);
-            if (entity.getCraftAnimationTicks() == 0 && entity.getReturnAnimationTicks() > 0) entity.setReturnAnimationTicks(entity.getReturnAnimationTicks()-1);
-
             if (entity.getCraftAnimationTicks() == 0 && entity.getLastCraftAnimationTicks() == 1 && entity.getRecipeBeingCrafted() != null) {
                 ItemStack stack = entity.getRecipeBeingCrafted().getOutput().copy();
 
@@ -62,26 +61,28 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
 
                 entity.setAffectedStack(stack);
                 entity.setReturnAnimationTicks(40);
+                entity.setLastReturnAnimationTicks(40);
                 entity.clear();
             }
-
-            if (entity.getAffectedStack().isOf(Items.AIR)) entity.setAffectedStack(ItemStack.EMPTY);
-            entity.inventory.removeIf(stack -> stack.isOf(Items.AIR));
-
-            entity.markDirty();
         }
+
+        entity.markDirty();
     }
 
     public void startCrafting(ShimmeringRecipe recipe) {
-        setRecipeBeingCrafted(recipe);
-        setCraftAnimationTicks(40);
-        setReturnAnimationTicks(0);
-        markDirty();
+        if (world != null && !world.isClient) {
+            setRecipeBeingCrafted(recipe);
+            setCraftAnimationTicks(40);
+            setLastCraftAnimationTicks(40);
+            setReturnAnimationTicks(0);
+            setLastReturnAnimationTicks(0);
+            markDirty();
+        }
     }
 
     @Override
     public int size() {
-        return inventory.size();
+        return getInventoryWithoutEmpty().size();
     }
 
     @Override
@@ -103,7 +104,6 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
         if (world != null && !world.isClient) {
             ItemStack stack = Inventories.splitStack(inventory, slot, amount);
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
             return stack;
         }
         return null;
@@ -114,17 +114,33 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
         if (world != null && !world.isClient) {
             ItemStack stack = Inventories.removeStack(inventory, slot);
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
             return stack;
         }
         return null;
     }
 
+    public void removeStack(ItemStack stack) {
+        if (world != null && !world.isClient) {
+            Inventories.removeStack(inventory, inventory.indexOf(stack));
+            markDirty();
+        }
+    }
+
+//    public void removeStacks(Item item) {
+//        if (world != null && !world.isClient) {
+//            for (ItemStack stack : inventory) {
+//                if (stack.isOf(item)) {
+//                    Inventories.removeStack(inventory, inventory.indexOf(stack));
+//                }
+//            }
+//            markDirty();
+//        }
+//    }
+
     public void setAffectedStack(ItemStack stack) {
         if (world != null && !world.isClient) {
             affectedStack = stack;
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
         }
     }
 
@@ -133,41 +149,20 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
         if (world != null && !world.isClient) {
             inventory.set(slot, stack);
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
         }
     }
 
     public void addStack(ItemStack stack) {
         if (world != null && !world.isClient) {
-            inventory.add(stack);
+            inventory.set(getInventoryWithoutEmpty().size(), stack);
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
         }
     }
 
-    public void fullyRemoveStack(ItemStack stack) {
-        if (world != null && !world.isClient && inventory.contains(stack)) {
-            inventory.remove(stack);
-            markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
-        }
-    }
-
-    public List<ItemStack> fullyRemoveStacks(ItemStack stack) {
-        List<ItemStack> removedList = new ArrayList<>();
-        for (ItemStack ingredient : inventory) {
-            if (ingredient.isOf(stack.getItem()) && inventory.contains(ingredient)) {
-                removedList.add(ingredient.copy());
-                fullyRemoveStack(ingredient);
-            }
-        }
-        return removedList;
-    }
-
-    public DefaultedList<ItemStack> getInventoryWithoutEmpty() {
-        DefaultedList<ItemStack> withoutEmpty = inventory;
-        withoutEmpty.removeAll(Collections.singleton(ItemStack.EMPTY));
-        return withoutEmpty;
+    public List<ItemStack> getInventoryWithoutEmpty() {
+        return inventory.stream()
+                .filter(stack -> !stack.isEmpty())
+                .toList();
     }
 
     @Override
@@ -180,7 +175,6 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
         if (world != null && !world.isClient) {
             inventory.clear();
             markDirty();
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
         }
     }
 
@@ -190,9 +184,10 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
 
     @Override
     public void markDirty() {
-        if (this.world != null && !world.isClient) {
+        if (this.world != null) {
             markDirty(this.world, this.pos, this.getCachedState());
             world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(world.getBlockState(pos)));
         }
     }
 
@@ -200,7 +195,19 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
     protected void writeNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
         super.writeNbt(tag, wrapperLookup);
 
-        Inventories.writeNbt(tag, inventory, wrapperLookup);
+        int i = 0;
+        NbtList nbtList = new NbtList();
+        for (ItemStack stack : inventory) {
+            if (!stack.isEmpty()) {
+                NbtCompound nbtCompound = new NbtCompound();
+                nbtCompound.putByte("Slot", (byte) i);
+                nbtList.add(stack.encode(wrapperLookup, nbtCompound));
+                i++;
+            }
+        }
+        if (!nbtList.isEmpty())
+            tag.put("Items", nbtList);
+
         if (!affectedStack.isEmpty())
             tag.put("affectedStack", affectedStack.encode(wrapperLookup));
         tag.putInt("craftAnimationTicks", craftAnimationTicks);
@@ -215,8 +222,18 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
     protected void readNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
         super.readNbt(tag, wrapperLookup);
 
-        Inventories.readNbt(tag, inventory, wrapperLookup);
-        affectedStack = ItemStack.fromNbt(wrapperLookup, tag.getCompound("affectedStack")).orElse(ItemStack.EMPTY);
+        inventory.clear();
+        NbtList nbtList = tag.getList("Items", NbtElement.COMPOUND_TYPE);
+        for (int i = 0; i < nbtList.size(); i++) {
+            NbtCompound nbtCompound = nbtList.getCompound(i);
+            int slot = nbtCompound.getByte("Slot");
+            if (slot < inventory.size()) {
+                inventory.set(slot, ItemStack.fromNbt(wrapperLookup, nbtCompound).orElse(ItemStack.EMPTY));
+            }
+        }
+
+        if (tag.contains("affectedStack")) affectedStack = ItemStack.fromNbt(wrapperLookup, tag.getCompound("affectedStack")).orElse(ItemStack.EMPTY);
+        else affectedStack = ItemStack.EMPTY;
         if (tag.contains("craftAnimationTicks")) craftAnimationTicks = tag.getInt("craftAnimationTicks");
         if (tag.contains("lastCraftAnimationTicks")) lastCraftAnimationTicks = tag.getInt("lastCraftAnimationTicks");
         if (tag.contains("returnAnimationTicks")) returnAnimationTicks = tag.getInt("returnAnimationTicks");
