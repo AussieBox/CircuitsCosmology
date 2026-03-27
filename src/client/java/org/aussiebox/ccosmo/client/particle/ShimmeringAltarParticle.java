@@ -19,15 +19,18 @@ public class ShimmeringAltarParticle extends AnimatedParticle {
         this.sprites = sprites;
         this.scale = scale;
         this.velocityMultiplier = 0.9F;
-        this.maxAge = 10;
+        this.maxAge = 20 + random.nextBetween(0, 20);
+        this.angle = random.nextBetween(0, 360);
         this.setTargetColor(Colors.WHITE);
-        this.setSprite(spriteProvider.getSprite(this.random));
+        this.setSprite(spriteProvider.getSprite(random));
     }
 
     @Override
     public void tick() {
         if (this.age++ >= this.maxAge)
             this.markDead();
+        this.prevAngle = this.angle;
+        this.angle += 0.05F;
     }
 
     @Environment(EnvType.CLIENT)

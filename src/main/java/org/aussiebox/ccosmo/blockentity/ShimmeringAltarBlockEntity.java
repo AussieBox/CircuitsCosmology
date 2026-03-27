@@ -69,6 +69,7 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
                 entity.setAffectedStack(stack);
                 entity.setReturnAnimationTicks(40);
                 entity.setLastReturnAnimationTicks(40);
+                entity.setRecipeBeingCrafted(null);
                 entity.clear();
             }
         }

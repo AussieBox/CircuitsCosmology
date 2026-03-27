@@ -8,6 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -16,11 +19,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
+import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.CCOSMOConstants;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class ShimmeringCactusItem extends Item {
@@ -48,10 +53,21 @@ public class ShimmeringCactusItem extends Item {
         boolean lit = stack.getOrDefault(ModDataComponentTypes.SHIMMERING_CACTUS_LIT, false);
         int fuse = stack.getOrDefault(ModDataComponentTypes.SHIMMERING_CACTUS_FUSE, 20);
 
+        if (lit && fuse == 60) {
+            world.playSound(null, entity.getBlockPos(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.PLAYERS, 2, 1);
+        }
+
+        if (lit && fuse < 60) {
+            world.addParticle(ParticleTypes.SMOKE, entity.getPos().getX(), entity.getPos().getY()+entity.getHeight(), entity.getPos().getZ(), 0, 0, 0);
+        }
+
         if (lit && fuse > 0) {
             stack.set(ModDataComponentTypes.SHIMMERING_CACTUS_FUSE, fuse-1);
             if (fuse-1 == 0) {
                 stack.decrement(1);
+                for (int i = 0; i < 20; i++) {
+                    world.addParticle(CCOSMO.SHIMMERING_ALTAR_LARGE, entity.getPos().getX()+ThreadLocalRandom.current().nextDouble(-0.5, 0.5), entity.getPos().getY()+(entity.getHeight()/2)+ThreadLocalRandom.current().nextDouble(-0.75, 0.75), entity.getPos().getZ()+ThreadLocalRandom.current().nextDouble(-0.5, 0.5), 0, 0, 0);
+                }
                 DamageSource damageSource = entity.getDamageSources().create(CCOSMOConstants.SHIMMERING_CACTUS);
                 world.createExplosion(null, damageSource, EXPLOSION_BEHAVIOR, entity.getPos(), 2.0F, false, World.ExplosionSourceType.NONE);
             }
@@ -59,6 +75,8 @@ public class ShimmeringCactusItem extends Item {
 
         if (entity instanceof PlayerEntity playerEntity) playerEntity.getInventory().markDirty();
     }
+
+
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {

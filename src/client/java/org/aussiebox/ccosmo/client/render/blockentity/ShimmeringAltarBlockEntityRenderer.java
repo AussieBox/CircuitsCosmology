@@ -42,8 +42,8 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
         if (entity.getReturnAnimationTicks() > 0 && entity.getLastReturnAnimationTicks() <= entity.getReturnAnimationTicks()) returnTime = 1;
 
         double yOffset = 0;
-        if (entity.getCraftAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(1, 0, craftTime, true);
-        else if (entity.getReturnAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(0, 1, returnTime, true);
+        if (entity.getCraftAnimationTicks() > 0 || entity.getLastCraftAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(1, 0, craftTime, true);
+        if (entity.getReturnAnimationTicks() > 0 || entity.getLastReturnAnimationTicks() > 0) yOffset = CCOSMOUtil.smoothInterpolate(0, 1, returnTime, true);
 
         matrices.push();
         matrices.translate(0.5, yOffset + 1.2, 0.5);
@@ -66,11 +66,10 @@ public class ShimmeringAltarBlockEntityRenderer implements BlockEntityRenderer<S
         matrices.pop();
 
         double radius = 0.75;
-        if (entity.getCraftAnimationTicks() > 0) {
+        if (entity.getCraftAnimationTicks() > 0 || entity.getLastCraftAnimationTicks() > 0) {
             circleRotation += CCOSMOUtil.smoothInterpolate(0.2, 0.001, craftTime, true);
             radius = CCOSMOUtil.smoothInterpolate(0.35, 0.75, craftTime, true);
-        }
-        circleRotation += 0.001;
+        } else circleRotation += 0.001;
 
         List<ItemStack> ingredients = entity.getInventoryWithoutEmpty();
         List<Vector2f> translations = CCOSMOUtil.calculateCirclePoints(0, 0, radius, circleRotation, ingredients.size());

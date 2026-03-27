@@ -84,16 +84,26 @@ public class ShimmerforkEntity extends PersistentProjectileEntity {
 
     @Override
     public void tick() {
-
-        if (this.dataTracker.get(BLOCK_CHANGES_REMAINING) == 0)
+        if (this.dataTracker.get(BLOCK_CHANGES_REMAINING) == 0) {
             this.getWorld().emitGameEvent(GameEvent.PROJECTILE_LAND, this.getBlockPos(), GameEvent.Emitter.of(this, this.getWorld().getBlockState(this.getBlockPos())));
+            returning = true;
+        }
 
         this.dataTracker.set(LIFETIME_REMAINING, this.dataTracker.get(LIFETIME_REMAINING)-1);
-        if (this.dataTracker.get(LIFETIME_REMAINING) == 0)
+        if (this.dataTracker.get(LIFETIME_REMAINING) == 0) {
             this.getWorld().emitGameEvent(GameEvent.PROJECTILE_LAND, this.getBlockPos(), GameEvent.Emitter.of(this, this.getWorld().getBlockState(this.getBlockPos())));
+            returning = true;
+        }
 
-        if (this.getWorld().isOutOfHeightLimit(this.getBlockPos()))
+        if (this.getWorld().isOutOfHeightLimit(this.getBlockPos())) {
             this.getWorld().emitGameEvent(GameEvent.PROJECTILE_LAND, this.getBlockPos(), GameEvent.Emitter.of(this, this.getWorld().getBlockState(this.getBlockPos())));
+            returning = true;
+        }
+
+        if (!this.getWorld().getWorldBorder().contains(this.getPos())) {
+            this.getWorld().emitGameEvent(GameEvent.PROJECTILE_LAND, this.getBlockPos(), GameEvent.Emitter.of(this, this.getWorld().getBlockState(this.getBlockPos())));
+            this.returning = true;
+        }
 
         Entity entity = this.getOwner();
         int i = this.dataTracker.get(LOYALTY);
@@ -177,7 +187,7 @@ public class ShimmerforkEntity extends PersistentProjectileEntity {
     }
 
     public void onLand() {
-
+        if (!dealtDamage) return;
         World world = this.getWorld();
         double range = Arrays.stream(CCOSMOConstants.shimmerforkLandEffectData).toList().getFirst();
         double blocksAffected = Arrays.stream(CCOSMOConstants.shimmerforkLandEffectData).toList().getLast();
