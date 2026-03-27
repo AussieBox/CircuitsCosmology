@@ -1,2 +1,2 @@
-# Ccosmo
-A Minecraft mod for Harpy SMP containing bits and bobs of AussieBox's creations, and a few unique features too.
+# Circuit's Cosmology
+A Minecraft mod for Apostasy SMP (Originally Harpy SMP) containing Dr. C. Weaver's many scientific discoveries! 
