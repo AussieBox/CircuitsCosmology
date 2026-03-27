@@ -13,6 +13,7 @@ import net.minecraft.util.collection.DefaultedList;
 import org.aussiebox.ccosmo.recipe.ShimmeringRecipe;
 
 public class ShimmeringRecipeSerializer implements RecipeSerializer<ShimmeringRecipe> {
+    public static final ShimmeringRecipeSerializer INSTANCE = new ShimmeringRecipeSerializer();
 
     public static final MapCodec<ShimmeringRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients")
@@ -29,26 +30,24 @@ public class ShimmeringRecipeSerializer implements RecipeSerializer<ShimmeringRe
     ).apply(instance, ShimmeringRecipe::new));
 
     public static final PacketCodec<RegistryByteBuf, ShimmeringRecipe> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER,
-            ShimmeringRecipe::getBorderProximity,
-
-            PacketCodecs.INTEGER,
-            ShimmeringRecipe::getDragonProximity,
-
             Ingredient.PACKET_CODEC.collect(PacketCodecs.toList()),
             recipe -> recipe.getIngredients().stream().toList(),
 
             Ingredient.PACKET_CODEC,
             ShimmeringRecipe::getAffectedIngredient,
 
+            PacketCodecs.INTEGER,
+            ShimmeringRecipe::getBorderProximity,
+
+            PacketCodecs.INTEGER,
+            ShimmeringRecipe::getDragonProximity,
+
             ItemStack.PACKET_CODEC,
             ShimmeringRecipe::getOutput,
 
-            (borderProximity, dragonProximity, ingredientsList, affected, result) -> {
-                DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(ingredientsList.size(), Ingredient.EMPTY);
-                for (int i = 0; i < ingredientsList.size(); i++) {
-                    ingredients.set(i, ingredientsList.get(i));
-                }
+            (ingredientsList, affected, borderProximity, dragonProximity, result) -> {
+                DefaultedList<Ingredient> ingredients = DefaultedList.of();
+                ingredients.addAll(ingredientsList);
                 return new ShimmeringRecipe(ingredients, affected, borderProximity, dragonProximity, result);
             }
     );

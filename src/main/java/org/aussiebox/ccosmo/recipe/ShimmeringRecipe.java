@@ -9,17 +9,22 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
+import org.aussiebox.ccosmo.recipe.serializer.ShimmeringRecipeSerializer;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 
 import java.util.List;
 import java.util.UUID;
 
 public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
+    public static final Identifier ID = CCOSMO.id("shimmering");
+
     @Getter private final Ingredient affectedIngredient;
     private final DefaultedList<Ingredient> ingredients;
     @Getter private final int borderProximity;
@@ -94,11 +99,16 @@ public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.SHIMMERING_SERIALIZER;
+        return ShimmeringRecipeSerializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipes.SHIMMERING_TYPE;
+        return Type.INSTANCE;
+    }
+
+    public static class Type implements RecipeType<ShimmeringRecipe> {
+        private Type() {}
+        public static final Type INSTANCE = new Type();
     }
 }

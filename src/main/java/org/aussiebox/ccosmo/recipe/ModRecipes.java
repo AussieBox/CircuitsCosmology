@@ -10,17 +10,14 @@ import org.aussiebox.ccosmo.recipe.serializer.ShimmeringRecipeSerializer;
 public class ModRecipes {
     public static final RecipeType<ShimmeringRecipe> SHIMMERING_TYPE = Registry.register(
             Registries.RECIPE_TYPE,
-            CCOSMO.id("shimmering"),
-            new RecipeType<ShimmeringRecipe>() {
-                @Override
-                public String toString() { return "shimmering"; }
-            }
+            ShimmeringRecipe.ID,
+            ShimmeringRecipe.Type.INSTANCE
     );
 
     public static final RecipeSerializer<ShimmeringRecipe> SHIMMERING_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
-            CCOSMO.id("shimmering"),
-            new ShimmeringRecipeSerializer()
+            ShimmeringRecipe.ID,
+            ShimmeringRecipeSerializer.INSTANCE
     );
 
     public static void init() {
