@@ -2,14 +2,17 @@ package org.aussiebox.ccosmo.blockentity;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -58,8 +61,17 @@ public class ShimmeringAltarBlockEntity extends BlockEntity implements Inventory
             if (entity.getCraftAnimationTicks() == 0 && entity.getLastCraftAnimationTicks() == 1 && entity.getRecipeBeingCrafted() != null) {
                 ItemStack stack = entity.getRecipeBeingCrafted().getOutput().copy();
 
-                for (RegistryEntry<Enchantment> enchantment : entity.getAffectedStack().getEnchantments().getEnchantments())
-                    stack.addEnchantment(enchantment, entity.getAffectedStack().getEnchantments().getLevel(enchantment));
+                if (entity.getAffectedStack().hasEnchantments() && entity.getWorld() != null) {
+                    for (RegistryEntry<Enchantment> enchantment : entity.getAffectedStack().getEnchantments().getEnchantments()) {
+                        if (stack.canBeEnchantedWith(enchantment, EnchantingContext.ACCEPTABLE))
+                            stack.addEnchantment(enchantment, entity.getAffectedStack().getEnchantments().getLevel(enchantment));
+                    }
+                }
+
+                if (entity.getAffectedStack().contains(DataComponentTypes.TRIM)) {
+                    ArmorTrim trim = entity.getAffectedStack().get(DataComponentTypes.TRIM);
+                    stack.set(DataComponentTypes.TRIM, trim);
+                }
 
                 if (entity.getAffectedStack().isOf(ModItems.DRAGONFLAME_CACTUS) && stack.isOf(ModItems.SHIMMERING_CACTUS)) {
                     stack.set(ModDataComponentTypes.SHIMMERING_CACTUS_FUSE, entity.getAffectedStack().getOrDefault(ModDataComponentTypes.DRAGONFLAME_CACTUS_FUSE, 20)*10);
