@@ -34,9 +34,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         ClientPlayerEntity player = (ClientPlayerEntity)(Object) this;
         if (player == null) return;
 
-        if (player.isSwimming() || player.getAbilities().flying || player.isInCreativeMode() || player.isSpectator() || !CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET)) return;
-
         TrinketComponent trinkets = TrinketComponent.KEY.get(player);
+
+        if (player.isSwimming() || player.getAbilities().flying || player.isInCreativeMode() || player.isSpectator() || (trinkets.getLensPos() == null && !CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET))) return;
 
         if (trinkets.isFlying() && isCamera()) {
             int i = 0;

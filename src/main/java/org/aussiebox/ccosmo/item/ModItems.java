@@ -172,6 +172,13 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
     );
 
+    public static final BlockItem SHIMMERING_LENS = registerBlockItem(
+            "shimmering_lens",
+            (settings -> new BlockItem(ModBlocks.SHIMMERING_LENS, settings)),
+            new Item.Settings()
+                    .rarity(Rarity.EPIC)
+    );
+
     public static final RegistryKey<ItemGroup> CCOSMO_ITEMGROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(CCOSMO.MOD_ID, "ccosmo"));
     public static final ItemGroup BOB_ITEMGROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.SHIMMER_POWDER))
@@ -210,6 +217,7 @@ public class ModItems {
             itemGroup.add(SHIMMERFORK);
             itemGroup.add(SHIMMERAXE);
             itemGroup.add(SHIMMERPICK);
+            itemGroup.add(SHIMMERING_LENS);
         });
     }
 

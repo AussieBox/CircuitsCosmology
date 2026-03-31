@@ -30,17 +30,17 @@ public class PyrrhianAnkletItem extends TrinketItem {
 
     public static float getAnkletFlySpeed(PlayerEntity player) {
         if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return 0.035F;
-        return 0.02F;
+        return 0.0F;
     }
 
     public static double getAnkletFlyTime(PlayerEntity player) {
         if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.buffedPyrrhianAnkletFlightTimeMaximum;
-        return CCOSMOConstants.pyrrhianAnkletFlightTimeMaximum;
+        return 0.0;
     }
 
     public static double getAnkletGlideTime(PlayerEntity player) {
         if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.buffedPyrrhianAnkletGlideTimeMaximum;
-        return CCOSMOConstants.pyrrhianAnkletGlideTimeMaximum;
+        return 0.0;
     }
 
     @Override
@@ -51,15 +51,5 @@ public class PyrrhianAnkletItem extends TrinketItem {
         list.add(4, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.3").withColor(0xFFAAAAAA));
         list.add(5, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.4").withColor(0xFFAAAAAA));
         list.add(6, Text.literal(" "));
-        if (!(stack.getHolder() instanceof LivingEntity)) return;
-
-        if (Objects.equals(stack.getHolder().getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) {
-            list.add(7, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.buffed.1").withColor(0xFFAAAAAA));
-            list.add(8, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.buffed.2").withColor(0xFFAAAAAA));
-        } else {
-            list.add(7, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.normal.1").withColor(0xFFAAAAAA));
-            list.add(8, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.normal.2").withColor(0xFFAAAAAA));
-        }
-        list.add(9, Text.literal(" "));
     }
 }

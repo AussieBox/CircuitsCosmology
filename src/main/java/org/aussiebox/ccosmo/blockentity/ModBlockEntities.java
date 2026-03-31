@@ -13,6 +13,8 @@ public class ModBlockEntities {
             register("shimmerglass", ShimmerglassBlockEntity::new, ModBlocks.SHIMMERGLASS);
     public static final BlockEntityType<ShimmeringAltarBlockEntity> SHIMMERING_ALTAR_BLOCK_ENTITY =
             register("shimmering_altar", ShimmeringAltarBlockEntity::new, ModBlocks.SHIMMERING_ALTAR);
+    public static final BlockEntityType<ShimmeringLensBlockEntity> SHIMMERING_LENS_BLOCK_ENTITY =
+            register("shimmering_lens", ShimmeringLensBlockEntity::new, ModBlocks.SHIMMERING_LENS);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType.BlockEntityFactory<? extends T> entityFactory, Block... blocks) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, CCOSMO.id(name), BlockEntityType.Builder.<T>create(entityFactory, blocks).build());

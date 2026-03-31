@@ -56,6 +56,7 @@ public class CCOSMOClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DRAGONFLAME_CACTUS_BLOCK, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERGLASS, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERING_ALTAR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SHIMMERING_LENS, RenderLayer.getTranslucent());
 
         EntityRendererRegistry.register(ModEntities.DragonflameCactusEntityType, DragonflameCactusEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.PickarangEntityType, (context) -> new PickarangEntityRenderer<>(context, 2.0F, true));
@@ -121,7 +122,7 @@ public class CCOSMOClient implements ClientModInitializer {
             if (client.player == null) return;
 
             if ((toggleFlightKeybind.wasPressed() && flightToggleCooldown == 0)) {
-                if (CCOSMOUtil.playerHasTrinket(client.player, ModItems.PYRRHIAN_ANKLET) && TrinketComponent.KEY.get(client.player).isCanFly()) {
+                if ((CCOSMOUtil.playerHasTrinket(client.player, ModItems.PYRRHIAN_ANKLET) || TrinketComponent.KEY.get(client.player).getLensPos() != null) && TrinketComponent.KEY.get(client.player).isCanFly()) {
                     if (client.player.isOnGround()) client.player.jump();
                     ClientPlayNetworking.send(new PyrrhianAnkletFlightC2SPacket(!TrinketComponent.KEY.get(client.player).isFlying()));
                     flightToggleCooldown = 7;

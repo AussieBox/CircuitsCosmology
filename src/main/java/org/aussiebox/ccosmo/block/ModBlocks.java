@@ -15,10 +15,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.aussiebox.ccosmo.CCOSMO;
-import org.aussiebox.ccosmo.block.custom.DragonflameCactusBlock;
-import org.aussiebox.ccosmo.block.custom.DragonflameCactusPlantBlock;
-import org.aussiebox.ccosmo.block.custom.ShimmerglassBlock;
-import org.aussiebox.ccosmo.block.custom.ShimmeringAltarBlock;
+import org.aussiebox.ccosmo.block.custom.*;
 
 import java.util.function.Function;
 
@@ -89,6 +86,19 @@ public class ModBlocks {
                     .luminance((state) -> 7)
                     .strength(5.0F, 1200.0F)
                     .requiresTool()
+                    .nonOpaque(),
+            false
+    );
+
+    public static final Block SHIMMERING_LENS = register(
+            "shimmering_lens",
+            ShimmeringLensBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.PINK)
+                    .strength(0.3F)
+                    .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+                    .instrument(NoteBlockInstrument.BELL)
+                    .allowsSpawning(Blocks::never)
                     .nonOpaque(),
             false
     );

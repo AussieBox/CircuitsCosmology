@@ -1,0 +1,8 @@
+{
+  "parent": "ccosmo:block/shimmering_lens",
+  "textures": {
+    "0": "ccosmo:block/shimmering_lens_side",
+    "1": "ccosmo:block/shimmering_lens_top",
+    "particle": "ccosmo:block/shimmering_lens_top"
+  }
+}

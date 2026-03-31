@@ -2,12 +2,17 @@ package org.aussiebox.ccosmo.cca;
 
 import lombok.Getter;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.aussiebox.ccosmo.CCOSMO;
+import org.aussiebox.ccosmo.blockentity.ShimmeringLensBlockEntity;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.item.ModItems;
 import org.aussiebox.ccosmo.item.custom.PyrrhianAnkletItem;
@@ -18,7 +23,10 @@ import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class TrinketComponent implements AutoSyncedComponent, ServerTickingComponent {
     public static final ComponentKey<TrinketComponent> KEY = ComponentRegistry.getOrCreate(CCOSMO.id("trinket_component"), TrinketComponent.class);
@@ -36,6 +44,7 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Getter private int nonGroundedTime;
     @Getter private int enchancementAirJumpsLeft = 0;
     @Getter private boolean enchancementHasAirJump = false;
+    @Getter private BlockPos lensPos;
 
     public TrinketComponent(PlayerEntity player) {
         this.player = player;
@@ -98,22 +107,31 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         this.sync();
     }
 
+    public void setLensPos(BlockPos pos) {
+        this.lensPos = pos;
+        this.sync();
+    }
+
     @Override
     public void serverTick() {
-        ///  -[PYRRHIAN ANKLET]- ///
+        ///  -[PYRRHIAN ANKLET & SHIMMERING LENS]- ///
 
         if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET)) {
-            setFlying(false);
-            setCanFly(false);
+            if (lensPos == null) {
+                setFlying(false);
+                setCanFly(false);
+            }
             setGliding(false);
             setCanGlide(false);
         }
 
-        if (pyrrhianAnkletFlightTime <= 0 || flightDamageCooldown > 0) setCanFly(false);
-        else setCanFly(true);
+        if (lensPos == null) {
+            if (pyrrhianAnkletFlightTime <= 0 || flightDamageCooldown > 0) setCanFly(false);
+            else setCanFly(true);
 
-        if (pyrrhianAnkletGlideTime <= 0 || glideDamageCooldown > 0) setCanGlide(false);
-        else setCanGlide(true);
+            if (pyrrhianAnkletGlideTime <= 0 || glideDamageCooldown > 0) setCanGlide(false);
+            else setCanGlide(true);
+        } else setCanFly(flightDamageCooldown <= 0);
 
         // Switch to gliding when cooldown runs out
         if (!canFly && flying) {
@@ -135,7 +153,7 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         else nonGroundedTime = 0;
 
         // Manage flight time
-        if (flying) {
+        if (flying && lensPos == null) {
             Vec3d movement = player.getMovement();
             changeFlightTime(-(Math.abs(movement.x)+Math.abs(movement.y)+Math.abs(movement.z)));
 
@@ -147,6 +165,22 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
 
         if (flightDamageCooldown > 0) changeFlightDamageCooldown(-1);
         if (glideDamageCooldown > 0) changeGlideDamageCooldown(-1);
+
+        ///  -[SHIMMERING LENS]- //
+
+        // Reset lens position if outside of effect area
+        if (player.getWorld() != null && lensPos != null) {
+            World world = player.getWorld();
+            BlockEntity blockEntity = world.getBlockEntity(lensPos);
+            if (blockEntity instanceof ShimmeringLensBlockEntity lensEntity) {
+                List<UUID> uuids = new ArrayList<>();
+                lensEntity.getPlayersInBox().forEach(serverPlayerEntity -> uuids.add(serverPlayerEntity.getUuid()));
+
+                if (!uuids.contains(player.getUuid())) setLensPos(null);
+            } else {
+                setLensPos(null);
+            }
+        }
 
         ///  -[SHIMMER JAR]- ///
 
@@ -196,6 +230,7 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
             this.enchancementAirJumpsLeft = tag.contains("enchancementAirJumpsLeft") ? tag.getInt("enchancementAirJumpsLeft") : 0;
             this.enchancementHasAirJump = tag.contains("enchancementHasAirJump") && tag.getBoolean("enchancementHasAirJump");
         }
+        this.lensPos = NbtHelper.toBlockPos(tag, "lensPos").isPresent() ? NbtHelper.toBlockPos(tag, "lensPos").get() : null;
     }
 
     @Override
@@ -214,5 +249,6 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
             tag.putInt("enchancementAirJumpsLeft", this.enchancementAirJumpsLeft);
             tag.putBoolean("enchancementHasAirJump", this.enchancementHasAirJump);
         }
+        if (this.lensPos != null) tag.put("lensPos", NbtHelper.fromBlockPos(this.lensPos));
     }
 }
