@@ -24,6 +24,7 @@ import org.aussiebox.ccosmo.cca.TrinketComponent;
 import org.aussiebox.ccosmo.client.model.entity.DragonflameCactusEntityModel;
 import org.aussiebox.ccosmo.client.particle.ShimmeringAltarParticle;
 import org.aussiebox.ccosmo.client.render.blockentity.ShimmeringAltarBlockEntityRenderer;
+import org.aussiebox.ccosmo.client.render.blockentity.ShimmeringLensBlockEntityRenderer;
 import org.aussiebox.ccosmo.client.render.entity.DragonflameCactusEntityRenderer;
 import org.aussiebox.ccosmo.client.render.entity.PickarangEntityRenderer;
 import org.aussiebox.ccosmo.client.render.entity.ShimmerforkEntityRenderer;
@@ -63,6 +64,7 @@ public class CCOSMOClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.FluidityTridentEntityType, ShimmerforkEntityRenderer::new);
 
         BlockEntityRendererFactories.register(ModBlockEntities.SHIMMERING_ALTAR_BLOCK_ENTITY, ShimmeringAltarBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.SHIMMERING_LENS_BLOCK_ENTITY, ShimmeringLensBlockEntityRenderer::new);
 
         TrinketRendererRegistry.registerRenderer(ModItems.PYRRHIAN_ANKLET, new PyrrhianAnkletRenderer());
         TrinketRendererRegistry.registerRenderer(ModItems.SHIMMER_JAR, new ShimmerJarRenderer());

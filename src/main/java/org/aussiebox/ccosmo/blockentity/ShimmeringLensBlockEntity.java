@@ -32,16 +32,20 @@ public class ShimmeringLensBlockEntity extends BlockEntity {
         }
     }
 
-    public List<ServerPlayerEntity> getPlayersInBox() {
-        if (world == null) return new ArrayList<>();
-
-        Box effectBox = switch (level) {
+    public Box getBox() {
+        return switch (level) {
             case 1 -> new Box(pos.getX()-5, pos.getY()-12, pos.getZ()-5, pos.getX()+5, pos.getY()+12, pos.getZ()+5);
             case 2 -> new Box(pos.getX()-6, pos.getY()-16, pos.getZ()-6, pos.getX()+6, pos.getY()+16, pos.getZ()+6);
             case 3 -> new Box(pos.getX()-7, pos.getY()-20, pos.getZ()-7, pos.getX()+7, pos.getY()+20, pos.getZ()+7);
             case 4 -> new Box(pos.getX()-8, pos.getY()-24, pos.getZ()-8, pos.getX()+8, pos.getY()+24, pos.getZ()+8);
             default -> null;
         };
+    }
+
+    public List<ServerPlayerEntity> getPlayersInBox() {
+        if (world == null) return new ArrayList<>();
+
+        Box effectBox = getBox();
         if (effectBox == null) return new ArrayList<>();
         return world.getEntitiesByClass(ServerPlayerEntity.class, effectBox, player -> !player.isSpectator() && !player.isInCreativeMode());
     }
