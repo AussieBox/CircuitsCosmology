@@ -228,11 +228,11 @@ public class PickarangEntity extends ThrownEntity {
 
         if (this.getOwner() instanceof PlayerEntity player)
             if (player.distanceTo(itemEntity) <= 8) {
-                player.sendPickup(itemEntity, 1);
-                player.getInventory().insertStack(itemEntity.getStack());
-                itemEntity.discard();
+                if (player.getInventory().insertStack(itemEntity.getStack())) {
+                    player.sendPickup(itemEntity, 1);
+                    itemEntity.discard();
+                }
             }
-
         this.discard();
     }
 

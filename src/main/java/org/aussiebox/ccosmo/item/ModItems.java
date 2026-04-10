@@ -180,7 +180,7 @@ public class ModItems {
     );
 
     public static final RegistryKey<ItemGroup> CCOSMO_ITEMGROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(CCOSMO.MOD_ID, "ccosmo"));
-    public static final ItemGroup BOB_ITEMGROUP = FabricItemGroup.builder()
+    public static final ItemGroup CCOSMO_ITEMGROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.SHIMMER_POWDER))
             .displayName(Text.translatable("itemGroup.ccosmo.ccosmo"))
             .build();
@@ -202,7 +202,7 @@ public class ModItems {
     public static void init() {
         CCOSMO.LOGGER.info("Registering Items for " + CCOSMO.MOD_ID);
 
-        Registry.register(Registries.ITEM_GROUP, CCOSMO_ITEMGROUP_KEY, BOB_ITEMGROUP);
+        Registry.register(Registries.ITEM_GROUP, CCOSMO_ITEMGROUP_KEY, CCOSMO_ITEMGROUP);
         ItemGroupEvents.modifyEntriesEvent(CCOSMO_ITEMGROUP_KEY).register(itemGroup -> {
             itemGroup.add(DRAGONFLAME_CACTUS.getDefaultStack());
             itemGroup.add(ModBlocks.DRAGONFLAME_CACTUS_BLOCK.asItem());

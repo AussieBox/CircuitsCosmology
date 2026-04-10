@@ -1,9 +1,11 @@
 package org.aussiebox.ccosmo.client.render.blockentity;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
@@ -23,14 +25,15 @@ public class ShimmeringLensBlockEntityRenderer implements BlockEntityRenderer<Sh
         if (entity.getWorld() == null) return;
         Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
         Box box = entity.getBox();
-        if (box == null) return;
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (box == null || player == null) return;
         
-        float minX = (float) box.minX-entity.getPos().getX()+0.01F;
-        float minY = (float) box.minY-entity.getPos().getY()+0.01F;
-        float minZ = (float) box.minZ-entity.getPos().getZ()+0.01F;
-        float maxX = (float) box.maxX-entity.getPos().getX()-0.01F;
-        float maxY = (float) box.maxY-entity.getPos().getY()-0.01F;
-        float maxZ = (float) box.maxZ-entity.getPos().getZ()-0.01F;
+        float minX = (float) box.minX-entity.getPos().getX()-0.001F;
+        float minY = (float) box.minY-entity.getPos().getY()-0.001F;
+        float minZ = (float) box.minZ-entity.getPos().getZ()-0.001F;
+        float maxX = (float) box.maxX-entity.getPos().getX()+0.001F;
+        float maxY = (float) box.maxY-entity.getPos().getY()+0.001F;
+        float maxZ = (float) box.maxZ-entity.getPos().getZ()+0.001F;
 
         float textureScale = 0.5f;
         float scrollSpeed = 0.01f;
@@ -41,7 +44,7 @@ public class ShimmeringLensBlockEntityRenderer implements BlockEntityRenderer<Sh
         float sizeZ = maxZ - minZ;
 
         matrices.push();
-        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TEXTURE));
+        VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(TEXTURE));
 
         // Front face
         consumer.vertex(positionMatrix, minX, minY, maxZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, 1);
@@ -54,7 +57,7 @@ public class ShimmeringLensBlockEntityRenderer implements BlockEntityRenderer<Sh
         consumer.vertex(positionMatrix, minX, minY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
         consumer.vertex(positionMatrix, minX, maxY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
         consumer.vertex(positionMatrix, maxX, maxY, minZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
-
+        
         // Left face
         consumer.vertex(positionMatrix, minX, minY, minZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);
         consumer.vertex(positionMatrix, minX, minY, maxZ).color(Colors.WHITE).texture(time + (sizeZ / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);

@@ -43,6 +43,10 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "cardinal-components-base": "${cca_version}",
+    "cardinal-components-entity": "${cca_version}",
+    "cardinal-components-world": "${cca_version}",
+    "trinkets": "${trinkets_version}"
   }
 }

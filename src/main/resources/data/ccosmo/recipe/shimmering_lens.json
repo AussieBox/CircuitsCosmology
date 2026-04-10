@@ -1,0 +1,31 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "ccosmo:shimmer_powder_block"
+  },
+  "border_proximity": 1000,
+  "dragon_proximity": 20,
+  "ingredients": [
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "ccosmo:shimmerglass"
+    },
+    {
+      "item": "minecraft:chain"
+    },
+    {
+      "item": "minecraft:chain"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:shimmering_lens"
+  }
+}

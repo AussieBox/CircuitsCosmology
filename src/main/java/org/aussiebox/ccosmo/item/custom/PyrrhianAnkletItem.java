@@ -13,6 +13,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.aussiebox.ccosmo.CCOSMOConstants;
+import org.aussiebox.ccosmo.cca.TrinketComponent;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,8 +30,8 @@ public class PyrrhianAnkletItem extends TrinketItem {
     }
 
     public static float getAnkletFlySpeed(PlayerEntity player) {
-        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return 0.035F;
-        return 0.0F;
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return 0.04F;
+        return TrinketComponent.KEY.get(player).getLensPos() != null ? 0.035F : 0.0F;
     }
 
     public static double getAnkletFlyTime(PlayerEntity player) {
