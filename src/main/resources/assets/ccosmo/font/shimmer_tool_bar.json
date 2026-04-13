@@ -13,49 +13,49 @@
         "-"
       ],
       "ascent": -32768,
-      "height": -4
+      "height": -3
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/start.png",
       "chars": ["s"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/loop.png",
       "chars": ["l"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/end.png",
       "chars": ["e"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/filled/start.png",
       "chars": ["S"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/filled/loop.png",
       "chars": ["L"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     },
     {
       "type": "bitmap",
       "file": "ccosmo:font/tooltip/shimmer_tool_bar/filled/end.png",
       "chars": ["E"],
-      "ascent": 5,
-      "height": 5
+      "ascent": 4,
+      "height": 7
     }
   ]
 }
