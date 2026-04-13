@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -13,7 +14,7 @@ import org.aussiebox.ccosmo.blockentity.ModBlockEntities;
 import org.aussiebox.ccosmo.blockentity.ShimmeringLensBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class ShimmeringLensBlock extends BlockWithEntity {
+public class ShimmeringLensBlock extends BlockWithEntity implements Stainable {
     public static final MapCodec<ShimmeringLensBlock> CODEC = createCodec(ShimmeringLensBlock::new);
     private static final VoxelShape COLLISION_SHAPE = Block.createCuboidShape(0.0F, 0.0F, 0.0F, 16.0F, 8.0F, 16.0F);
 
@@ -35,9 +36,15 @@ public class ShimmeringLensBlock extends BlockWithEntity {
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return COLLISION_SHAPE;
     }
+
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return COLLISION_SHAPE;
+    }
+
+    @Override
+    public boolean hasDynamicBounds() {
+        return super.hasDynamicBounds();
     }
 
     @Override
@@ -49,5 +56,10 @@ public class ShimmeringLensBlock extends BlockWithEntity {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.SHIMMERING_LENS_BLOCK_ENTITY, ShimmeringLensBlockEntity::tick);
+    }
+
+    @Override
+    public DyeColor getColor() {
+        return DyeColor.PURPLE;
     }
 }

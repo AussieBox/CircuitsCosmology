@@ -15,14 +15,17 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import org.aussiebox.ccosmo.CCOSMO;
-import org.aussiebox.ccosmo.CCOSMOConstants;
 import org.aussiebox.ccosmo.block.ModBlocks;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.item.custom.*;
+import org.aussiebox.ccosmo.item.custom.shimmer_tool.ShimmeraxeItem;
+import org.aussiebox.ccosmo.item.custom.shimmer_tool.ShimmerforkItem;
+import org.aussiebox.ccosmo.item.custom.shimmer_tool.ShimmerpickItem;
 
 import java.util.function.Function;
 
@@ -36,11 +39,9 @@ public class ModItems {
 
     public static final Item SHIMMERFORK = registerItem(
             "shimmerfork",
-            ShimmerToolItem::new,
+            ShimmerforkItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, CCOSMOConstants.ShimmerToolType.TRIDENT)
                     .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, CCOSMOConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
@@ -61,11 +62,9 @@ public class ModItems {
 
     public static final Item SHIMMERAXE = registerItem(
             "shimmeraxe",
-            ShimmerToolItem::new,
+            ShimmeraxeItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, CCOSMOConstants.ShimmerToolType.AXE)
                     .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, CCOSMOConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
@@ -79,6 +78,7 @@ public class ModItems {
                             ), AttributeModifierSlot.MAINHAND)
                             .build()
                     )
+                    .component(DataComponentTypes.TOOL, ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.AXE_MINEABLE))
                     .rarity(Rarity.EPIC)
                     .maxDamage(2031)
                     .fireproof()
@@ -86,11 +86,9 @@ public class ModItems {
 
     public static final Item SHIMMERPICK = registerItem(
             "shimmerpick",
-            ShimmerToolItem::new,
+            ShimmerpickItem::new,
             new Item.Settings()
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_TYPE, CCOSMOConstants.ShimmerToolType.PICKAXE)
                     .component(ModDataComponentTypes.SHIMMER_TOOL_MAX_CHARGES, 8)
-                    .component(ModDataComponentTypes.SHIMMER_TOOL_SKIN, CCOSMOConstants.ShimmerToolSkin.BASE)
                     .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(
                                     Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
@@ -104,6 +102,7 @@ public class ModItems {
                             ), AttributeModifierSlot.MAINHAND)
                             .build()
                     )
+                    .component(DataComponentTypes.TOOL, ModToolMaterials.SHIMMERING_NETHERITE.createComponent(BlockTags.PICKAXE_MINEABLE))
                     .rarity(Rarity.EPIC)
                     .maxDamage(2031)
                     .fireproof()

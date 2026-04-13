@@ -6,7 +6,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import org.aussiebox.ccosmo.CCOSMO;
@@ -16,14 +15,11 @@ import org.joml.Matrix4f;
 public class ShimmeringLensBlockEntityRenderer implements BlockEntityRenderer<ShimmeringLensBlockEntity> {
     public static final Identifier TEXTURE = CCOSMO.id("textures/entity/shimmering_lens_wall.png");
 
-    public ShimmeringLensBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
-
-    }
+    public ShimmeringLensBlockEntityRenderer(BlockEntityRendererFactory.Context context) {}
 
     @Override
     public void render(ShimmeringLensBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (entity.getWorld() == null) return;
-        Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
         Box box = entity.getBox();
         PlayerEntity player = MinecraftClient.getInstance().player;
         if (box == null || player == null) return;
@@ -43,45 +39,48 @@ public class ShimmeringLensBlockEntityRenderer implements BlockEntityRenderer<Sh
         float sizeY = maxY - minY;
         float sizeZ = maxZ - minZ;
 
-        matrices.push();
+        Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
         VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(TEXTURE));
 
         // Front face
-        consumer.vertex(positionMatrix, minX, minY, maxZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, 1);
-        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, 1);
-        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, 1);
-        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, 1);
+        consumer.vertex(positionMatrix, minX, minY, maxZ).color(-1).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, 1);
+        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(-1).texture(time + (sizeX / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, 1);
+        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(-1).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, 1);
+        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, 1);
 
         // Back face
-        consumer.vertex(positionMatrix, maxX, minY, minZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
-        consumer.vertex(positionMatrix, minX, minY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
-        consumer.vertex(positionMatrix, minX, maxY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
-        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 0, -1);
+        consumer.vertex(positionMatrix, maxX, minY, minZ).color(-1).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, -1);
+        consumer.vertex(positionMatrix, minX, minY, minZ).color(-1).texture(time + (sizeX / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, -1);
+        consumer.vertex(positionMatrix, minX, maxY, minZ).color(-1).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, -1);
+        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 0, -1);
         
         // Left face
-        consumer.vertex(positionMatrix, minX, minY, minZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);
-        consumer.vertex(positionMatrix, minX, minY, maxZ).color(Colors.WHITE).texture(time + (sizeZ / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);
-        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(Colors.WHITE).texture(time + (sizeZ / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);
-        consumer.vertex(positionMatrix, minX, maxY, minZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(-1, 0, 0);
+        consumer.vertex(positionMatrix, minX, minY, minZ).color(-1).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), -1, 0, 0);
+        consumer.vertex(positionMatrix, minX, minY, maxZ).color(-1).texture(time + (sizeZ / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), -1, 0, 0);
+        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(-1).texture(time + (sizeZ / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), -1, 0, 0);
+        consumer.vertex(positionMatrix, minX, maxY, minZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), -1, 0, 0);
 
         // Right face
-        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(Colors.WHITE).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(1, 0, 0);
-        consumer.vertex(positionMatrix, maxX, minY, minZ).color(Colors.WHITE).texture(time + (sizeZ / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(1, 0, 0);
-        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(Colors.WHITE).texture(time + (sizeZ / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(1, 0, 0);
-        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(1, 0, 0);
+        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(-1).texture(time, time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 1, 0, 0);
+        consumer.vertex(positionMatrix, maxX, minY, minZ).color(-1).texture(time + (sizeZ / textureScale), time + (sizeY / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 1, 0, 0);
+        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(-1).texture(time + (sizeZ / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 1, 0, 0);
+        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 1, 0, 0);
 
         // Top face
-        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(Colors.WHITE).texture(time, time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 1, 0);
-        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 1, 0);
-        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 1, 0);
-        consumer.vertex(positionMatrix, minX, maxY, minZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, 1, 0);
+        consumer.vertex(positionMatrix, minX, maxY, maxZ).color(-1).texture(time, time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 1, 0);
+        consumer.vertex(positionMatrix, maxX, maxY, maxZ).color(-1).texture(time + (sizeX / textureScale), time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 1, 0);
+        consumer.vertex(positionMatrix, maxX, maxY, minZ).color(-1).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 1, 0);
+        consumer.vertex(positionMatrix, minX, maxY, minZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, 1, 0);
 
         // Bottom face
-        consumer.vertex(positionMatrix, minX, minY, minZ).color(Colors.WHITE).texture(time, time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, -1, 0);
-        consumer.vertex(positionMatrix, maxX, minY, minZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, -1, 0);
-        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(Colors.WHITE).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, -1, 0);
-        consumer.vertex(positionMatrix, minX, minY, maxZ).color(Colors.WHITE).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(0, -1, 0);
+        consumer.vertex(positionMatrix, minX, minY, minZ).color(-1).texture(time, time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, -1, 0);
+        consumer.vertex(positionMatrix, maxX, minY, minZ).color(-1).texture(time + (sizeX / textureScale), time + (sizeZ / textureScale)).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, -1, 0);
+        consumer.vertex(positionMatrix, maxX, minY, maxZ).color(-1).texture(time + (sizeX / textureScale), time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, -1, 0);
+        consumer.vertex(positionMatrix, minX, minY, maxZ).color(-1).texture(time, time).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(matrices.peek(), 0, -1, 0);
+    }
 
-        matrices.pop();
+    @Override
+    public boolean rendersOutsideBoundingBox(ShimmeringLensBlockEntity blockEntity) {
+        return true;
     }
 }

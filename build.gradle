@@ -64,12 +64,12 @@ dependencies {
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}"
 
     modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
+    modImplementation ("mezz.jei:jei-${jei_mc_version}-fabric-api:${jei_version}")
 
-    modRuntimeOnly("me.djtheredstoner:DevAuth-${project.devauth_module}:${project.devauth_version}")
+    modLocalRuntime("me.djtheredstoner:DevAuth-${project.devauth_module}:${project.devauth_version}")
 
     modApi("maven.modrinth:enchancement:${project.enchancement_version}")
-
-    modCompileOnly("mezz.jei:jei-${jei_mc_version}-fabric-api:${jei_version}")
+    modApi("maven.modrinth:trimmable-tools:${project.trimmable_tools_version}")
 
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
 }
@@ -78,12 +78,16 @@ processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
+    inputs.property "cca_version", project.cca_version
+    inputs.property "trinkets_version", project.trinkets_version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+                "loader_version": project.loader_version,
+                "cca_version": project.cca_version,
+                "trinkets_version": project.trinkets_version
     }
 }
 

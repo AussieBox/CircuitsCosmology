@@ -12,8 +12,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.aussiebox.ccosmo.CCOSMO;
-import org.aussiebox.ccosmo.CCOSMOConstants;
-import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -66,29 +64,10 @@ public abstract class ItemRendererMixin {
             ordinal = 1
     )
     public BakedModel ccosmo$getModel(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) @Nullable World world, @Local(argsOnly = true) @Nullable LivingEntity entity, @Local(argsOnly = true) int seed) {
-
         BakedModel newModel = null;
 
-        if (stack.isOf(ModItems.SHIMMERFORK)) {
-            CCOSMOConstants.ShimmerToolSkin skin = stack.getOrDefault(ModDataComponentTypes.SHIMMER_TOOL_SKIN, CCOSMOConstants.ShimmerToolSkin.BASE);
-
-            if (skin == CCOSMOConstants.ShimmerToolSkin.BASE)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("base_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.WOODEN_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("wooden_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.STONE_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("stone_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.COPPER_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("copper_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.GOLD_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("gold_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.IRON_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("iron_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.DIAMOND_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("diamond_shimmerfork_hand")));
-            if (skin == CCOSMOConstants.ShimmerToolSkin.NETHERITE_BINDING)
-                newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("netherite_shimmerfork_hand")));
-        }
+        if (stack.isOf(ModItems.SHIMMERFORK))
+            newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("base_shimmerfork_hand")));
 
         if (newModel == null) return bakedModel;
 

@@ -15,9 +15,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.item.Item;
 import org.aussiebox.ccosmo.CCOSMO;
-import org.aussiebox.ccosmo.CCOSMOConstants;
 import org.aussiebox.ccosmo.block.ModBlocks;
 import org.aussiebox.ccosmo.blockentity.ModBlockEntities;
 import org.aussiebox.ccosmo.cca.TrinketComponent;
@@ -32,7 +30,6 @@ import org.aussiebox.ccosmo.client.render.hud.PyrrhianAnkletFlightRenderer;
 import org.aussiebox.ccosmo.client.render.hud.ShimmerToolChargeRenderer;
 import org.aussiebox.ccosmo.client.render.trinkets.PyrrhianAnkletRenderer;
 import org.aussiebox.ccosmo.client.render.trinkets.ShimmerJarRenderer;
-import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.entity.ModEntities;
 import org.aussiebox.ccosmo.item.ModItems;
 import org.aussiebox.ccosmo.packet.PyrrhianAnkletFlightC2SPacket;
@@ -79,25 +76,6 @@ public class CCOSMOClient implements ClientModInitializer {
     }
 
     public static void registerModelPredicates() {
-        Item[] fluidityItems = new Item[]{
-                ModItems.SHIMMERFORK,
-                ModItems.SHIMMERAXE,
-                ModItems.SHIMMERPICK,
-        };
-        for (Item item : fluidityItems) {
-            for (CCOSMOConstants.ShimmerToolSkin skin : CCOSMOConstants.ShimmerToolSkin.values()) {
-                ModelPredicateProviderRegistry.register(
-                        item,
-                        CCOSMO.id("skin_" + skin.asString()),
-                        (stack, world, entity, seed) -> {
-                            CCOSMOConstants.ShimmerToolSkin activeSkin = stack.getOrDefault(ModDataComponentTypes.SHIMMER_TOOL_SKIN, CCOSMOConstants.ShimmerToolSkin.BASE);
-                            if (activeSkin == skin) return 1.0F;
-                            return 0.0F;
-                        }
-                );
-            }
-        }
-
         ModelPredicateProviderRegistry.register(
                 ModItems.SHIMMERFORK,
                 CCOSMO.id("throwing"),

@@ -38,29 +38,6 @@ public interface CCOSMOConstants {
         }
     }
 
-    enum ShimmerToolSkin implements StringIdentifiable {
-        BASE("base"),
-        WOODEN_BINDING("wooden_binding"),
-        STONE_BINDING("stone_binding"),
-        COPPER_BINDING("copper_binding"),
-        GOLD_BINDING("gold_binding"),
-        IRON_BINDING("iron_binding"),
-        DIAMOND_BINDING("diamond_binding"),
-        NETHERITE_BINDING("netherite_binding");
-
-        private final String key;
-        public static final Codec<ShimmerToolSkin> CODEC = StringIdentifiable.createCodec(ShimmerToolSkin::values);
-
-        ShimmerToolSkin(String key) {
-            this.key = key;
-        }
-
-        @Override
-        public String asString() {
-            return this.key;
-        }
-    }
-
     int shimmerforkBlockChangeMaximum = 12;
 
     // Array Order: {Effect Range, Blocks Affected}
@@ -68,8 +45,6 @@ public interface CCOSMOConstants {
 
     int shimmerpickReturnTime = 20;
 
-    double pyrrhianAnkletFlightTimeMaximum = 75;
-    double buffedPyrrhianAnkletFlightTimeMaximum = 100;
-    double pyrrhianAnkletGlideTimeMaximum = 100;
-    double buffedPyrrhianAnkletGlideTimeMaximum = 150;
+    double pyrrhianAnkletFlightTimeMaximum = 100;
+    double pyrrhianAnkletGlideTimeMaximum = 150;
 }

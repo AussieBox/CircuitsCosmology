@@ -18,13 +18,6 @@ public abstract class ModelLoaderMixin {
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;loadItemModel(Lnet/minecraft/client/util/ModelIdentifier;)V", ordinal = 1))
     private void onInit(CallbackInfo ci) {
         this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "base_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "wooden_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "stone_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "copper_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "gold_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "iron_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "diamond_shimmerfork_hand")));
-        this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "netherite_shimmerfork_hand")));
         this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "pyrrhian_anklet_body")));
         this.loadItemModel(ModelIdentifier.ofInventoryVariant(Identifier.of(CCOSMO.MOD_ID, "shimmer_jar_body")));
     }

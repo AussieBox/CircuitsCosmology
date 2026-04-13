@@ -35,12 +35,12 @@ public class PyrrhianAnkletItem extends TrinketItem {
     }
 
     public static double getAnkletFlyTime(PlayerEntity player) {
-        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.buffedPyrrhianAnkletFlightTimeMaximum;
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.pyrrhianAnkletFlightTimeMaximum;
         return 0.0;
     }
 
     public static double getAnkletGlideTime(PlayerEntity player) {
-        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.buffedPyrrhianAnkletGlideTimeMaximum;
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.pyrrhianAnkletGlideTimeMaximum;
         return 0.0;
     }
 

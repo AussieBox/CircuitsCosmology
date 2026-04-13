@@ -58,6 +58,7 @@ public class ModBlocks {
                     .solidBlock(Blocks::never)
                     .suffocates(Blocks::never)
                     .blockVision(Blocks::never)
+                    .dynamicBounds()
                     .noCollision() // Fun fact! .noCollision() actually FORCES .nonOpaque()!
                     .nonOpaque(), // ...I still did it, just in case.
             false
@@ -99,6 +100,7 @@ public class ModBlocks {
                     .sounds(BlockSoundGroup.AMETHYST_BLOCK)
                     .instrument(NoteBlockInstrument.BELL)
                     .allowsSpawning(Blocks::never)
+                    .blockVision(Blocks::never)
                     .nonOpaque(),
             false
     );
