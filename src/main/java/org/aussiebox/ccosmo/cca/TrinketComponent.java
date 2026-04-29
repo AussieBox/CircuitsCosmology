@@ -15,7 +15,7 @@ import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.blockentity.ShimmeringLensBlockEntity;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
 import org.aussiebox.ccosmo.item.ModItems;
-import org.aussiebox.ccosmo.item.custom.PyrrhianAnkletItem;
+import org.aussiebox.ccosmo.item.custom.PyrrhianCuffItem;
 import org.aussiebox.ccosmo.item.custom.ShimmerToolItem;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
@@ -38,8 +38,8 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     @Getter private boolean canFly = false;
     @Getter private int glideDamageCooldown;
     @Getter private int flightDamageCooldown;
-    @Getter private double pyrrhianAnkletFlightTime;
-    @Getter private double pyrrhianAnkletGlideTime;
+    @Getter private double pyrrhianCuffFlightTime;
+    @Getter private double pyrrhianCuffGlideTime;
     @Getter private boolean wasLastFlying = false;
     @Getter private int nonGroundedTime;
     @Getter private int enchancementAirJumpsLeft = 0;
@@ -67,7 +67,7 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     }
 
     public void changeGlideTime(double time) {
-        this.pyrrhianAnkletGlideTime = Math.clamp(this.pyrrhianAnkletGlideTime + time, 0, PyrrhianAnkletItem.getAnkletGlideTime(player));
+        this.pyrrhianCuffGlideTime = Math.clamp(this.pyrrhianCuffGlideTime + time, 0, PyrrhianCuffItem.getCuffGlideTime(player));
         this.sync();
     }
 
@@ -93,7 +93,7 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
     }
 
     public void changeFlightTime(double time) {
-        this.pyrrhianAnkletFlightTime = Math.clamp(this.pyrrhianAnkletFlightTime + time, 0, PyrrhianAnkletItem.getAnkletFlyTime(player));
+        this.pyrrhianCuffFlightTime = Math.clamp(this.pyrrhianCuffFlightTime + time, 0, PyrrhianCuffItem.getCuffFlyTime(player));
         this.sync();
     }
 
@@ -114,9 +114,9 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
 
     @Override
     public void serverTick() {
-        ///  -[PYRRHIAN ANKLET & SHIMMERING LENS]- ///
+        ///  -[PYRRHIAN CUFF & SHIMMERING LENS]- ///
 
-        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET)) {
+        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.pyrrhian_cuff)) {
             if (lensPos == null) {
                 setFlying(false);
                 setCanFly(false);
@@ -126,10 +126,10 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
         }
 
         if (lensPos == null) {
-            if (pyrrhianAnkletFlightTime <= 0 || flightDamageCooldown > 0) setCanFly(false);
+            if (pyrrhianCuffFlightTime <= 0 || flightDamageCooldown > 0) setCanFly(false);
             else setCanFly(true);
 
-            if (pyrrhianAnkletGlideTime <= 0 || glideDamageCooldown > 0) setCanGlide(false);
+            if (pyrrhianCuffGlideTime <= 0 || glideDamageCooldown > 0) setCanGlide(false);
             else setCanGlide(true);
         } else setCanFly(flightDamageCooldown <= 0);
 
@@ -158,10 +158,10 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
             changeFlightTime(-(Math.abs(movement.x)+Math.abs(movement.y)+Math.abs(movement.z)));
 
             setGliding(false);
-        } else if (flightDamageCooldown <= 0) changeFlightTime(PyrrhianAnkletItem.getAnkletFlyTime(player)/250);
+        } else if (flightDamageCooldown <= 0) changeFlightTime(PyrrhianCuffItem.getCuffFlyTime(player)/250);
 
         if (gliding) changeGlideTime(-1);
-        else if (glideDamageCooldown <= 0) changeGlideTime(PyrrhianAnkletItem.getAnkletGlideTime(player)/250);
+        else if (glideDamageCooldown <= 0) changeGlideTime(PyrrhianCuffItem.getCuffGlideTime(player)/250);
 
         if (flightDamageCooldown > 0) changeFlightDamageCooldown(-1);
         if (glideDamageCooldown > 0) changeGlideDamageCooldown(-1);
@@ -216,11 +216,11 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
 
     @Override
     public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.pyrrhianAnkletFlightTime = tag.contains("pyrrhianAnkletFlightTime") ? tag.getDouble("pyrrhianAnkletFlightTime") : 0;
+        this.pyrrhianCuffFlightTime = tag.contains("pyrrhianCuffFlightTime") ? tag.getDouble("pyrrhianCuffFlightTime") : 0;
         this.flightDamageCooldown = tag.contains("flightDamageCooldown") ? tag.getInt("flightDamageCooldown") : 0;
         this.canFly = tag.contains("canFly") && tag.getBoolean("canFly");
         this.flying = tag.contains("flying") && tag.getBoolean("flying");
-        this.pyrrhianAnkletGlideTime = tag.contains("pyrrhianAnkletGlideTime") ? tag.getDouble("pyrrhianAnkletGlideTime") : 0;
+        this.pyrrhianCuffGlideTime = tag.contains("pyrrhianCuffGlideTime") ? tag.getDouble("pyrrhianCuffGlideTime") : 0;
         this.glideDamageCooldown = tag.contains("glideDamageCooldown") ? tag.getInt("glideDamageCooldown") : 0;
         this.canGlide = tag.contains("canGlide") && tag.getBoolean("canGlide");
         this.gliding = tag.contains("gliding") && tag.getBoolean("gliding");
@@ -235,11 +235,11 @@ public class TrinketComponent implements AutoSyncedComponent, ServerTickingCompo
 
     @Override
     public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
-        tag.putDouble("pyrrhianAnkletFlightTime", this.pyrrhianAnkletFlightTime);
+        tag.putDouble("pyrrhianCuffFlightTime", this.pyrrhianCuffFlightTime);
         tag.putInt("flightDamageCooldown", this.flightDamageCooldown);
         tag.putBoolean("canFly", this.canFly);
         tag.putBoolean("flying", this.flying);
-        tag.putDouble("pyrrhianAnkletGlideTime", this.pyrrhianAnkletGlideTime);
+        tag.putDouble("pyrrhianCuffGlideTime", this.pyrrhianCuffGlideTime);
         tag.putInt("glideDamageCooldown", this.glideDamageCooldown);
         tag.putBoolean("canGlide", this.canGlide);
         tag.putBoolean("gliding", this.gliding);

@@ -3,13 +3,16 @@
   "affected": {
     "item": "minecraft:book"
   },
-  "border_proximity": 50,
+  "border_proximity": 100,
   "ingredients": [
     {
-      "item": "minecraft:diamond_block"
+      "item": "minecraft:ender_pearl"
     },
     {
-      "item": "ccosmo:shimmer_powder_block"
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": ""
     }
   ],
   "result": {
@@ -17,7 +20,7 @@
     "components": {
       "minecraft:stored_enchantments": {
         "levels": {
-          "ccosmo:shimmerseep": 1
+          "ccosmo:shimmershift": 1
         }
       }
     }

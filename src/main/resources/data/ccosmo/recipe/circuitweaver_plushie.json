@@ -1,0 +1,36 @@
+{
+  "type": "ccosmo:shimmering",
+  "affected": {
+    "item": "minecraft:emerald_block"
+  },
+  "dragon_proximity": 20,
+  "ingredients": [
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    },
+    {
+      "item": "ccosmo:dragon_scales"
+    }
+  ],
+  "result": {
+    "id": "ccosmo:circuitweaver_plushie"
+  }
+}

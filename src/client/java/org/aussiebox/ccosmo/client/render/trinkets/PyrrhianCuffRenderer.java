@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.RotationAxis;
 
-public class PyrrhianAnkletRenderer implements TrinketRenderer {
+public class PyrrhianCuffRenderer implements TrinketRenderer {
     @Override
     public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> entityModel, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, LivingEntity livingEntity, float v, float v1, float v2, float v3, float v4, float v5) {
         if (!(entityModel instanceof PlayerEntityModel<? extends LivingEntity> playerModel)) return;
@@ -27,10 +27,10 @@ public class PyrrhianAnkletRenderer implements TrinketRenderer {
         int light = WorldRenderer.getLightmapCoordinates(livingEntity.getWorld(), livingEntity.getBlockPos());
 
         matrices.push();
-        if (livingEntity.getMainArm() == Arm.LEFT) playerModel.rightLeg.rotate(matrices);
-        else playerModel.leftLeg.rotate(matrices);
-        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180f));
-        matrices.translate(0, -0.0625, 0);
+        if (livingEntity.getMainArm() == Arm.LEFT) playerModel.leftArm.rotate(matrices);
+        else playerModel.rightArm.rotate(matrices);
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180F));
+        matrices.translate(0.065, +0.1, 0);
 
         itemRenderer.renderItem(stack, ModelTransformationMode.FIXED, livingEntity.getMainArm() == Arm.LEFT, matrices, vertexConsumerProvider, light, OverlayTexture.DEFAULT_UV, bakedModel);
 

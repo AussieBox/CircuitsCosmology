@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ccosmo:circuitweaver_plushie"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "ccosmo:blocks/circuitweaver_plushie"
+}

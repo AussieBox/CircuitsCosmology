@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ccosmo:item/pyrrhian_anklet"
+    "layer0": "ccosmo:item/pyrrhian_cuff"
   }
 }

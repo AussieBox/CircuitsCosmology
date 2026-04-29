@@ -44,8 +44,8 @@ public abstract class ItemRendererMixin {
         if (stack.isOf(ModItems.SHIMMERFORK) && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED))
             newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("shimmerfork")));
 
-        if (stack.isOf(ModItems.PYRRHIAN_ANKLET) && renderMode == ModelTransformationMode.FIXED)
-            newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("pyrrhian_anklet_body")));
+        if (stack.isOf(ModItems.pyrrhian_cuff) && renderMode == ModelTransformationMode.FIXED)
+            newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("pyrrhian_cuff_body")));
 
         if (stack.isOf(ModItems.SHIMMER_JAR) && renderMode == ModelTransformationMode.FIXED)
             newModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(CCOSMO.id("shimmer_jar_body")));

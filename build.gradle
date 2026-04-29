@@ -63,13 +63,14 @@ dependencies {
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}"
 
-    modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
-    modImplementation ("mezz.jei:jei-${jei_mc_version}-fabric-api:${jei_version}")
+    modImplementation "maven.modrinth:trinkets:${project.trinkets_version}"
+    modImplementation "mezz.jei:jei-${jei_mc_version}-fabric-api:${jei_version}"
 
-    modLocalRuntime("me.djtheredstoner:DevAuth-${project.devauth_module}:${project.devauth_version}")
+    modLocalRuntime "me.djtheredstoner:DevAuth-${project.devauth_module}:${project.devauth_version}"
 
-    modApi("maven.modrinth:enchancement:${project.enchancement_version}")
-    modApi("maven.modrinth:trimmable-tools:${project.trimmable_tools_version}")
+    modApi "maven.modrinth:enchancement:${project.enchancement_version}"
+    modApi "maven.modrinth:trimmable-tools:${project.trimmable_tools_version}"
+    modApi files("${projectDir}/libs/bewitchery-1.0.2.jar")
 
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
 }

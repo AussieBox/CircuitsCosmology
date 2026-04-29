@@ -12,11 +12,11 @@ import org.aussiebox.ccosmo.CCOSMO;
 import org.aussiebox.ccosmo.CCOSMOConstants;
 import org.aussiebox.ccosmo.cca.ShimmerComponent;
 import org.aussiebox.ccosmo.component.ModDataComponentTypes;
-import org.aussiebox.ccosmo.item.ModItems;
 import org.aussiebox.ccosmo.item.custom.ShimmerToolItem;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 
 public class ShimmerToolChargeRenderer {
+    public static int y = 0;
 
     public static void render(DrawContext context, RenderTickCounter counter) {
         PlayerEntity player = MinecraftClient.getInstance().player;
@@ -56,11 +56,7 @@ public class ShimmerToolChargeRenderer {
 
         int width = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int height = MinecraftClient.getInstance().getWindow().getScaledHeight();
-        int y = height/2+5+textRenderer.fontHeight;
-
-        if (CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET) && PyrrhianAnkletFlightRenderer.y != height/2+6+MinecraftClient.getInstance().textRenderer.fontHeight) {
-            y = PyrrhianAnkletFlightRenderer.y+textRenderer.fontHeight+5;
-        }
+        y = height/2+5+textRenderer.fontHeight;
 
         context.drawText(
                 textRenderer,

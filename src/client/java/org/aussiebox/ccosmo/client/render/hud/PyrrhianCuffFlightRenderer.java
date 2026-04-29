@@ -6,10 +6,11 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import org.aussiebox.ccosmo.cca.TrinketComponent;
 import org.aussiebox.ccosmo.item.ModItems;
-import org.aussiebox.ccosmo.item.custom.PyrrhianAnkletItem;
+import org.aussiebox.ccosmo.item.custom.PyrrhianCuffItem;
+import org.aussiebox.ccosmo.item.custom.ShimmerToolItem;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 
-public class PyrrhianAnkletFlightRenderer {
+public class PyrrhianCuffFlightRenderer {
     public static int y = 0;
 
     public static void render(DrawContext context, RenderTickCounter counter) {
@@ -19,15 +20,18 @@ public class PyrrhianAnkletFlightRenderer {
         int height = context.getScaledWindowHeight();
         y = height/2+6+MinecraftClient.getInstance().textRenderer.fontHeight;
 
+        if (player.getMainHandStack().getItem() instanceof ShimmerToolItem)
+            y = ShimmerToolChargeRenderer.y+13;
+
         if (player.isInCreativeMode()) return;
 
         TrinketComponent trinketComponent = TrinketComponent.KEY.get(player);
-        double flightTime = trinketComponent.getPyrrhianAnkletFlightTime();
-        double flightTimeMaximum = PyrrhianAnkletItem.getAnkletFlyTime(player);
-        double glideTime = trinketComponent.getPyrrhianAnkletGlideTime();
-        double glideTimeMaximum = PyrrhianAnkletItem.getAnkletGlideTime(player);
+        double flightTime = trinketComponent.getPyrrhianCuffFlightTime();
+        double flightTimeMaximum = PyrrhianCuffItem.getCuffFlyTime(player);
+        double glideTime = trinketComponent.getPyrrhianCuffGlideTime();
+        double glideTimeMaximum = PyrrhianCuffItem.getCuffGlideTime(player);
 
-        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.PYRRHIAN_ANKLET))
+        if (!CCOSMOUtil.playerHasTrinket(player, ModItems.pyrrhian_cuff))
             return;
         if (!trinketComponent.isFlying() && !trinketComponent.isGliding())
             if (flightTime >= flightTimeMaximum && glideTime >= glideTimeMaximum)

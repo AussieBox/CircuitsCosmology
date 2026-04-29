@@ -105,6 +105,14 @@ public class ModBlocks {
             false
     );
 
+    public static final Block CIRCUITWEAVER_PLUSHIE = register(
+            "circuitweaver_plushie",
+            PlushieBlock::new,
+            AbstractBlock.Settings.copy(Blocks.BLACK_WOOL)
+                    .nonOpaque(),
+            false
+    );
+
     private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem) {
         RegistryKey<Block> blockKey = keyOfBlock(name);
         Block block = blockFactory.apply(settings);

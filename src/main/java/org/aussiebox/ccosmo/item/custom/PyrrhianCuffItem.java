@@ -18,8 +18,8 @@ import org.aussiebox.ccosmo.cca.TrinketComponent;
 import java.util.List;
 import java.util.Objects;
 
-public class PyrrhianAnkletItem extends TrinketItem {
-    public PyrrhianAnkletItem(Settings settings) {
+public class PyrrhianCuffItem extends TrinketItem {
+    public PyrrhianCuffItem(Settings settings) {
         super(settings);
     }
 
@@ -29,28 +29,28 @@ public class PyrrhianAnkletItem extends TrinketItem {
         return modifiers;
     }
 
-    public static float getAnkletFlySpeed(PlayerEntity player) {
+    public static float getCuffFlySpeed(PlayerEntity player) {
         if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return 0.04F;
         return TrinketComponent.KEY.get(player).getLensPos() != null ? 0.035F : 0.0F;
     }
 
-    public static double getAnkletFlyTime(PlayerEntity player) {
-        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.pyrrhianAnkletFlightTimeMaximum;
+    public static double getCuffFlyTime(PlayerEntity player) {
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.PyrrhianCuffFlightTimeMaximum;
         return 0.0;
     }
 
-    public static double getAnkletGlideTime(PlayerEntity player) {
-        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.pyrrhianAnkletGlideTimeMaximum;
+    public static double getCuffGlideTime(PlayerEntity player) {
+        if (Objects.equals(player.getUuidAsString(), "fdf5edf6-f202-47fe-98f0-68a60d68b0d5")) return CCOSMOConstants.PyrrhianCuffGlideTimeMaximum;
         return 0.0;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> list, TooltipType type) {
         list.add(1, Text.literal(" "));
-        list.add(2, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.1").withColor(0xFFAAAAAA));
-        list.add(3, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.2").withColor(0xFFAAAAAA));
-        list.add(4, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.3").withColor(0xFFAAAAAA));
-        list.add(5, Text.translatable("item.ccosmo.pyrrhian_anklet.tooltip.4").withColor(0xFFAAAAAA));
+        list.add(2, Text.translatable("item.ccosmo.pyrrhian_cuff.tooltip.1").withColor(0xFFAAAAAA));
+        list.add(3, Text.translatable("item.ccosmo.pyrrhian_cuff.tooltip.2").withColor(0xFFAAAAAA));
+        list.add(4, Text.translatable("item.ccosmo.pyrrhian_cuff.tooltip.3").withColor(0xFFAAAAAA));
+        list.add(5, Text.translatable("item.ccosmo.pyrrhian_cuff.tooltip.4").withColor(0xFFAAAAAA));
         list.add(6, Text.literal(" "));
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.aussiebox.ccosmo.cca.TrinketComponent;
-import org.aussiebox.ccosmo.item.custom.PyrrhianAnkletItem;
+import org.aussiebox.ccosmo.item.custom.PyrrhianCuffItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -53,7 +53,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         TrinketComponent trinkets = TrinketComponent.KEY.get(player);
 
         if (trinkets.isFlying() && !player.hasVehicle())
-            return this.isSprinting() ? PyrrhianAnkletItem.getAnkletFlySpeed(player) * 2.0F : PyrrhianAnkletItem.getAnkletFlySpeed(player);
+            return this.isSprinting() ? PyrrhianCuffItem.getCuffFlySpeed(player) * 2.0F : PyrrhianCuffItem.getCuffFlySpeed(player);
 
         return original;
     }

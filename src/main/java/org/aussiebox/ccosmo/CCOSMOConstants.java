@@ -13,6 +13,7 @@ public interface CCOSMOConstants {
     RegistryKey<DamageType> PICKARANG_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, CCOSMO.id("pickarang"));
     RegistryKey<DamageType> SHIMMERFORK_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, CCOSMO.id("shimmerfork"));
     RegistryKey<DamageType> SHIMMERING_CACTUS = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, CCOSMO.id("shimmering_cactus"));
+    RegistryKey<DamageType> DRAGON_SCALES_HARVEST_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, CCOSMO.id("dragon_scales_harvest"));
 
     RegistryKey<Enchantment> BORDERLINKED_ENCHANT = RegistryKey.of(RegistryKeys.ENCHANTMENT, CCOSMO.id("borderlinked"));
     RegistryKey<Enchantment> SHIMMERSEEP_ENCHANT = RegistryKey.of(RegistryKeys.ENCHANTMENT, CCOSMO.id("shimmerseep"));
@@ -45,6 +46,6 @@ public interface CCOSMOConstants {
 
     int shimmerpickReturnTime = 20;
 
-    double pyrrhianAnkletFlightTimeMaximum = 100;
-    double pyrrhianAnkletGlideTimeMaximum = 150;
+    double PyrrhianCuffFlightTimeMaximum = 100;
+    double PyrrhianCuffGlideTimeMaximum = 150;
 }

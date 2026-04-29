@@ -12,5 +12,11 @@
       "ccosmo:item/shimmer_tool_shimmerseep_charge"
     ],
     "subtitle": "subtitles.ccosmo.item.shimmer_tool_shimmerseep_charge"
+  },
+  "block.circuitweaver_plushie.honk": {
+    "sounds": [
+      "ccosmo:block/circuitweaver_plushie_honk"
+    ],
+    "subtitle": "subtitles.ccosmo.block.circuitweaver_plushie_honk"
   }
 }

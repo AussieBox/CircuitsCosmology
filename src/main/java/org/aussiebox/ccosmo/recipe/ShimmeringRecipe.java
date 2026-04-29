@@ -12,15 +12,18 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.aussiebox.ccosmo.CCOSMO;
+import org.aussiebox.ccosmo.block.ModBlocks;
 import org.aussiebox.ccosmo.recipe.inventory.ShimmeringAltarInventory;
 import org.aussiebox.ccosmo.recipe.serializer.ShimmeringRecipeSerializer;
 import org.aussiebox.ccosmo.util.CCOSMOUtil;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
     public static final Identifier ID = CCOSMO.id("shimmering");
@@ -47,8 +50,14 @@ public class ShimmeringRecipe implements Recipe<ShimmeringAltarInventory> {
             MinecraftServer server = world.getServer();
             if (server == null) return false;
             ServerPlayerEntity circEntity = server.getPlayerManager().getPlayer(UUID.fromString("fdf5edf6-f202-47fe-98f0-68a60d68b0d5"));
-            if (circEntity == null) return false;
-            if (!input.getBlockPos().isWithinDistance(circEntity.getPos(), dragonProximity)) return false;
+            if (circEntity == null || !input.getBlockPos().isWithinDistance(circEntity.getPos(), dragonProximity)) {
+                AtomicBoolean blockHere = new AtomicBoolean(false);
+                Box box = new Box(input.getBlockPos().getX()-dragonProximity, input.getBlockPos().getY()-dragonProximity, input.getBlockPos().getZ()-dragonProximity, input.getBlockPos().getX()+dragonProximity, input.getBlockPos().getY()+dragonProximity, input.getBlockPos().getZ()+((double) dragonProximity /2));
+                world.getStatesInBox(box).forEach((blockState -> {
+                    if (blockState.isOf(ModBlocks.CIRCUITWEAVER_PLUSHIE)) blockHere.set(true);
+                }));
+                if (!blockHere.get()) return false;
+            }
         }
         if (!affectedIngredient.test(input.getAffectedStack())) return false;
 

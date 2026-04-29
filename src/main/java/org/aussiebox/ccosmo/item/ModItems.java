@@ -145,9 +145,9 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
     );
 
-    public static final Item PYRRHIAN_ANKLET = registerItem(
-            "pyrrhian_anklet",
-            PyrrhianAnkletItem::new,
+    public static final Item pyrrhian_cuff = registerItem(
+            "pyrrhian_cuff",
+            PyrrhianCuffItem::new,
             new Item.Settings()
                     .maxCount(1)
                     .rarity(Rarity.EPIC)
@@ -178,6 +178,22 @@ public class ModItems {
                     .rarity(Rarity.EPIC)
     );
 
+    public static final Item DRAGON_SCALES = registerItem(
+            "dragon_scales",
+            Item::new,
+            new Item.Settings()
+                    .rarity(Rarity.EPIC)
+                    .fireproof()
+    );
+
+    public static final Item CIRCUITWEAVER_PLUSHIE = registerBlockItem(
+            "circuitweaver_plushie",
+            (settings -> new BlockItem(ModBlocks.CIRCUITWEAVER_PLUSHIE, settings)),
+            new Item.Settings()
+                    .rarity(Rarity.EPIC)
+                    .fireproof()
+    );
+
     public static final RegistryKey<ItemGroup> CCOSMO_ITEMGROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(CCOSMO.MOD_ID, "ccosmo"));
     public static final ItemGroup CCOSMO_ITEMGROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.SHIMMER_POWDER))
@@ -206,7 +222,7 @@ public class ModItems {
             itemGroup.add(DRAGONFLAME_CACTUS.getDefaultStack());
             itemGroup.add(ModBlocks.DRAGONFLAME_CACTUS_BLOCK.asItem());
             itemGroup.add(SHIMMERING_CACTUS.getDefaultStack());
-            itemGroup.add(PYRRHIAN_ANKLET);
+            itemGroup.add(pyrrhian_cuff);
             itemGroup.add(AMETHYST_DISRUPTOR);
             itemGroup.add(SHIMMER_POWDER);
             itemGroup.add(SHIMMER_POWDER_BLOCK);
@@ -217,6 +233,8 @@ public class ModItems {
             itemGroup.add(SHIMMERAXE);
             itemGroup.add(SHIMMERPICK);
             itemGroup.add(SHIMMERING_LENS);
+            itemGroup.add(DRAGON_SCALES);
+            itemGroup.add(CIRCUITWEAVER_PLUSHIE);
         });
     }
 
